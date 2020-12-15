@@ -15,4 +15,10 @@ public interface UserDao {
 
     int updateUser(User user);
 
+    String getPassword(String password);
+
+    User findUserById(long userId);
+
+    User findUserByUsername(String username);
+
 }
