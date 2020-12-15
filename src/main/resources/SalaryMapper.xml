@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.salary.dao.SalaryDao">
+
+    <resultMap id="rm" type="com.salary.bean.Salary">
+        <result property="id" jdbcType="BIGINT" column="id"/>
+        <result property="userId" jdbcType="BIGINT" column="userId"/>
+        <result property="time" jdbcType="DATE" column="Time"/>
+        <result property="post" jdbcType="FLOAT" column="post"/>
+        <result property="performance" jdbcType="FLOAT" column="performance"/>
+        <result property="workYearSalary" jdbcType="FLOAT" column="workYearSalary"/>
+        <result property="allowance" jdbcType="FLOAT" column="Allowance"/>
+        <result property="flag" jdbcType="INTEGER" column="flag"/>
+    </resultMap>
+
+    <select id="findSalaryByUserId" parameterType="Long" resultMap="rm">
+        select
+            *
+        from
+            salary
+        where
+            userId=#{userId}
+    </select>
+
+    <update id="remove" parameterType="Long">
+        delete from
+            salary
+        where
+            id=#{Long}
+    </update>
+
+    <update id="update" parameterType="com.salary.bean.Salary">
+        UPDATE
+            salary
+        SET
+            userId=#{userId},
+            time=#{time},
+            post=#{post},
+            performance=#{performance},
+            workYearSalary=#{workYearSalary},
+            allowance=#{allowance},
+            flag=#{flag}
+        WHERE
+            id=#{id}
+    </update>
+
+    <insert id="add" parameterType="com.salary.bean.Salary">
+        INSERT INTO
+            salary(userId,time,post,performance,workYearSalary,allowance,flag)
+        VALUES
+            (#{userId},#{time, jdbcType=DATE},#{post},#{performance},#{workYearSalary},#{allowance},#{flag})
+    </insert>
+
+    <update id="paySalary" parameterType="Long">
+        UPDATE
+            salary
+        SET
+            flag=1
+        WHERE
+            id=#{id}
+    </update>
+</mapper>

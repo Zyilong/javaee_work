@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.salary.dao.DepartmentDao">
+
+    <resultMap id="rm" type="com.salary.bean.Department">
+        <result property="id" jdbcType="BIGINT" column="id"/>
+        <result property="name" jdbcType="VARCHAR" column="name"/>
+        <result property="phone" jdbcType="BIGINT" column="phone"/>
+        <result property="place" jdbcType="VARCHAR" column="place"/>
+        <result property="parentId" jdbcType="BIGINT" column="parentId"/>
+        <result property="time" jdbcType="DATE" column="Time"/>
+        <result property="del" jdbcType="INTEGER" column="Del"/>
+    </resultMap>
+
+    <select id="findDepartmentById" parameterType="Long" resultMap="rm">
+        select id, name, phone, place, parentId, Time, Del from department where id=#{id} AND DEL=0
+    </select>
+
+    <select id="findDepartmentByName" parameterType="String" resultMap="rm">
+        select * from department where name=#{name} and DEL=0
+    </select>
+
+
+    <select id="findALL" resultMap="rm">
+        SELECT * FROM department where Del=0
+    </select>
+
+    <update id="remove" parameterType="Long">
+        UPDATE department set Del=1 WHERE id=#{id}
+    </update>
+
+    <insert id="add" parameterType="com.salary.bean.Department">
+        INSERT INTO department(name,phone,place,parentId,Time)
+            values(#{name},#{phone},#{place},#{parentId},#{time, jdbcType=DATE})
+    </insert>
+
+</mapper>
