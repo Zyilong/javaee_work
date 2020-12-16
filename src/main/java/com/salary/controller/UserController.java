@@ -4,6 +4,7 @@ package com.salary.controller;
 import com.salary.bean.*;
 import com.salary.dao.SalaryDao;
 import com.salary.dao.UserDao;
+import com.salary.dao.UserMapper;
 import com.salary.util.EncryptUtil;
 import com.salary.util.JsonUtil;
 import com.salary.util.SqlSessionUtil;
@@ -13,7 +14,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.UnsupportedEncodingException;
-import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -119,12 +119,15 @@ public class UserController {
         }else{
             user.setId(userId);
             System.out.println("要更新的用户信息->" + user);
-
-            if (userDao.updateUser(user) != 0) {
-                message = new Message(1, "ok");
-            } else {
-                message = new Message(0, "修改员工信息失败");
+            if(userDao.findUserById(userId)==null){
+                if (userDao.updateUser(user) != 0) {
+                    message = new Message(1, "ok");
+                } else {
+                    message = new Message(0, "修改员工信息失败");
+                }
             }
+
+
         }
         SqlSessionUtil.closeSession();
         String json = JsonUtil.toJSON(message);
@@ -153,7 +156,7 @@ public class UserController {
                 if(salaryList.size()!=0){
                     message = new Message(1,"ok",items);
                 }else{
-                    message = new Message(0,"不存在该员工信息");
+                    message = new Message(0,"不存在该员工薪酬信息");
                 }
             }
         }
