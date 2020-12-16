@@ -33,4 +33,11 @@ public class LoginBody {
     public LoginBody() {
     }
 
+    @Override
+    public String toString() {
+        return "LoginBody{" +
+                "username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                '}';
+    }
 }
