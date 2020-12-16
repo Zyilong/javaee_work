@@ -403,7 +403,7 @@ public class AdminController {
     @RequestMapping(value = "/salary", method = RequestMethod.DELETE)
     @ResponseBody
     public String deleteSpecifiedIDSarlary(@RequestHeader("accessToken") String accessToken,
-                                           @RequestParam String salaryId) {
+                                           @RequestParam long salaryId) {
         if (!finalAccessToken.equals(accessToken)) {
             message = new Message(0, "accessToken错误");
             String json = JsonUtil.toJSON(message);
@@ -411,12 +411,11 @@ public class AdminController {
         }
 
         System.out.println("要删除的salaryId->" + salaryId);
-        long id = Long.parseLong(salaryId);
         //获取数据访问支持
         SqlSession session = SqlSessionUtil.getSesion();
         SalaryDao salaryDao = session.getMapper(SalaryDao.class);//对应的薪酬管理增加的薪酬数据访问层
 
-        int i = salaryDao.remove(id);
+        int i = salaryDao.remove(salaryId);
         if (i != 0) {
             message = new Message(1, "ok");
         } else {

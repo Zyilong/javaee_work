@@ -4,12 +4,10 @@ package com.salary.controller;
 import com.salary.bean.*;
 import com.salary.dao.SalaryDao;
 import com.salary.dao.UserDao;
-import com.salary.dao.UserMapper;
 import com.salary.util.EncryptUtil;
 import com.salary.util.JsonUtil;
 import com.salary.util.SqlSessionUtil;
 import org.apache.ibatis.session.SqlSession;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
