@@ -20,6 +20,13 @@ public class User {
 
     }
 
+    public User(String username,String password,String email){
+        this.username = username;
+        this.password = password;
+        this.email = email;
+    }
+
+
     public User(String username, String password, String email, String name, int age, int gender, String phone, long departmentId) {
         this(0L,username,password,email,name,age,gender,phone,departmentId,0);
     }

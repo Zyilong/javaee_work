@@ -22,15 +22,12 @@ public class LoginBody {
     }
 
     public void setPassword(String password) {
-
-        MessageDigest messageDigest;
         try{
             this.password = EncryptUtil.messageDigest(password);
         }catch (Exception e){
             e.printStackTrace();
             this.password = null;
         }
-
     }
 
     public LoginBody() {

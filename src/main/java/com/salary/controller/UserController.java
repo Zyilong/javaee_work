@@ -8,6 +8,7 @@ import com.salary.util.EncryptUtil;
 import com.salary.util.JsonUtil;
 import com.salary.util.SqlSessionUtil;
 import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,39 +24,15 @@ import java.util.List;
 @RequestMapping("/api/user")
 public class UserController {
 
-    private final SqlSession session = SqlSessionUtil.getSesion();
-    private final UserDao userDao = session.getMapper(UserDao.class);
-    private final SalaryDao salaryDao = session.getMapper(SalaryDao.class);
     private String finalAccessToken;
     private Message message;
-
-
-    /**
-     * 将byte数组转化为十六进制字符串，用于加密
-     *
-     * @param bytes
-     * @return
-     */
-    private static String byte2Hex(byte[] bytes) {
-        StringBuffer stringBuffer = new StringBuffer();
-        String temp = null;
-        for (int i = 0; i < bytes.length; i++) {
-            temp = Integer.toHexString(bytes[i] & 0xFF);
-            if (temp.length() == 1) {
-                //1得到一位的进行补0操作
-                stringBuffer.append("0");
-            }
-            stringBuffer.append(temp);
-        }
-        SqlSessionUtil.closeSession();
-        return stringBuffer.toString();
-    }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseBody
     public String login(@RequestBody LoginBody loginBody) {
+        SqlSession session = SqlSessionUtil.getSesion();
+        UserDao userDao = session.getMapper(UserDao.class);
         String password = userDao.getPassword(loginBody.getUsername());
-
         if (password != null && password != "" && password.equals(loginBody.getPassword())) {
             String token = loginBody.getUsername() + new Timestamp(System.currentTimeMillis()).toString();
             String accessToken = "";
@@ -78,21 +55,23 @@ public class UserController {
         return json;
     }
 
-    @RequestMapping(value = "/register", method = RequestMethod.GET)
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
     @ResponseBody
     public String register(@RequestBody UserRegisterBody userRegisterBody){
+        SqlSession session = SqlSessionUtil.getSesion();
+        UserDao userDao = session.getMapper(UserDao.class);
         User user;
         String hasNull;
         String username = userRegisterBody.getUsername();
         String password = userRegisterBody.getPassword();
         String email = userRegisterBody.getEmail();
         String verifyCode = userRegisterBody.getVerifyCode();
-
+        System.out.println(userRegisterBody.toString());
         user = userDao.findUserByUsername(userRegisterBody.getUsername());
         if(user==null){
             if((hasNull = checkNUll(username,password,email,verifyCode))==null){
                 //TODO
-                user = new User();
+                user = new User(username,password,email);
                 userDao.addUser(user);
                 message = new Message(1,"ok");
             }else{
@@ -110,6 +89,8 @@ public class UserController {
     @ResponseBody
     public String getUserInfo(@RequestHeader("accessToken") String accessToken,
                               @RequestParam("userId") long userId){
+        SqlSession session = SqlSessionUtil.getSesion();
+        UserDao userDao = session.getMapper(UserDao.class);
         if(!accessToken.equals(finalAccessToken)){
             message = new Message(0, "accessToken错误");
         }else{
@@ -131,6 +112,8 @@ public class UserController {
     public String updateUserInfo(@RequestHeader("accessToken") String accessToken,
                          @RequestParam("userId") long userId,
                          @RequestBody User user){
+        SqlSession session = SqlSessionUtil.getSesion();
+        UserDao userDao = session.getMapper(UserDao.class);
         if(!accessToken.equals(finalAccessToken)){
             message = new Message(0, "accessToken错误");
         }else{
@@ -152,8 +135,9 @@ public class UserController {
     @ResponseBody
     public String getUserSalary(@RequestHeader("accessToken") String accessToken,
                                 @RequestParam("userId") long userId){
-
-
+        SqlSession session = SqlSessionUtil.getSesion();
+        UserDao userDao = session.getMapper(UserDao.class);
+        SalaryDao salaryDao = session.getMapper(SalaryDao.class);
         if(!accessToken.equals(finalAccessToken)){
             message = new Message(0, "accessToken错误");
         }else{

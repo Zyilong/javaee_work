@@ -1,5 +1,6 @@
 package com.salary.bean;
 
+import com.salary.util.EncryptUtil;
 import com.salary.util.SqlSessionUtil;
 
 import java.security.MessageDigest;
@@ -31,16 +32,12 @@ public class UserRegisterBody {
     }
 
     public void setPassword(String password) {
-        MessageDigest messageDigest;
         try{
-            messageDigest = MessageDigest.getInstance("SHA-256");
-            messageDigest.update(password.getBytes("UTF-8"));
-            this.password = byte2Hex(messageDigest.digest());
+            this.password = EncryptUtil.messageDigest(password);
         }catch (Exception e){
             e.printStackTrace();
             this.password = null;
         }
-
     }
 
     public String getVerifyCode() {
@@ -51,24 +48,13 @@ public class UserRegisterBody {
         this.verifyCode = verifyCode;
     }
 
-    /**
-     * 将byte数组转化为十六进制字符串，用于加密
-     *
-     * @param bytes
-     * @return
-     */
-    private static String byte2Hex(byte[] bytes) {
-        StringBuffer stringBuffer = new StringBuffer();
-        String temp = null;
-        for (int i = 0; i < bytes.length; i++) {
-            temp = Integer.toHexString(bytes[i] & 0xFF);
-            if (temp.length() == 1) {
-                //1得到一位的进行补0操作
-                stringBuffer.append("0");
-            }
-            stringBuffer.append(temp);
-        }
-        SqlSessionUtil.closeSession();
-        return stringBuffer.toString();
+    @Override
+    public String toString() {
+        return "UserRegisterBody{" +
+                "email='" + email + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", verifyCode='" + verifyCode + '\'' +
+                '}';
     }
 }
