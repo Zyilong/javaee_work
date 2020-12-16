@@ -43,7 +43,7 @@ public class SqlSessionUtil {
      * 获取SqlSession
      * @return SqlSession对象
      */
-    public static SqlSession getSesion(){
+    public static SqlSession getSession(){
         SqlSession session = threadLocal.get();
         if(session == null){
             session = sqlSessionFactory.openSession(true);

@@ -12,10 +12,10 @@ import com.salary.util.EncryptUtil;
 import com.salary.util.JsonUtil;
 import com.salary.util.SqlSessionUtil;
 import org.apache.ibatis.session.SqlSession;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Timestamp;
 import java.util.*;
@@ -26,6 +26,7 @@ import java.util.*;
  * @version 1.0
  */
 @Controller
+@Scope("prototype")
 @RequestMapping("/api/admin")
 public class AdminController {
 
@@ -42,20 +43,18 @@ public class AdminController {
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseBody
     public String login(@RequestBody LoginBody loginBody) {
-        SqlSession session = SqlSessionUtil.getSesion();
+        SqlSession session = SqlSessionUtil.getSession();
         AdminDao adminDao = session.getMapper(AdminDao.class);
         String password1 = adminDao.getPassword(loginBody.getUsername());
         System.out.println(loginBody.getPassword());
 
-        if (password1 != null && password1 != "" && password1.equals(loginBody.getPassword())) {
+        if (password1 != null && !password1.equals("") && password1.equals(loginBody.getPassword())) {
             String token = loginBody.getUsername() + new Timestamp(System.currentTimeMillis()).toString();
             String accessToken = "";
             //sha256加密
             try {
                 accessToken = EncryptUtil.messageDigest(token);
             } catch (NoSuchAlgorithmException e) {
-                e.printStackTrace();
-            } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }
             System.out.println("生成的accessToken->" + accessToken);
@@ -65,8 +64,7 @@ public class AdminController {
             message = new Message(0, "登录失败，请检查用户名和密码是否正确");
         }
         SqlSessionUtil.closeSession();
-        String json = JsonUtil.toJSON(message);
-        return json;
+        return JsonUtil.toJSON(message);
     }
 
     /**
@@ -84,10 +82,9 @@ public class AdminController {
                              @RequestBody User user) {
         if (!accessToken.equals(finalAccessToken)) {
             message = new Message(0, "accessToken错误");
-            String json = JsonUtil.toJSON(message);
-            return json;
+            return JsonUtil.toJSON(message);
         }
-        SqlSession session = SqlSessionUtil.getSesion();
+        SqlSession session = SqlSessionUtil.getSession();
         UserDao userDao = session.getMapper(UserDao.class);
         user.setId(id);
         System.out.println("要更新的用户信息->" + user);
@@ -99,8 +96,7 @@ public class AdminController {
             message = new Message(0, "修改员工信息失败");
         }
         SqlSessionUtil.closeSession();
-        String json = JsonUtil.toJSON(message);
-        return json;
+        return JsonUtil.toJSON(message);
     }
 
     /**
@@ -116,10 +112,9 @@ public class AdminController {
                              @RequestParam("userId") long id) {
         if (!accessToken.equals(finalAccessToken)) {
             message = new Message(0, "accessToken错误");
-            String json = JsonUtil.toJSON(message);
-            return json;
+            return JsonUtil.toJSON(message);
         }
-        SqlSession session = SqlSessionUtil.getSesion();
+        SqlSession session = SqlSessionUtil.getSession();
         UserDao userDao = session.getMapper(UserDao.class);
         System.out.println("要删除的id->" + id);
         int i = userDao.removeUser(id);
@@ -130,8 +125,7 @@ public class AdminController {
             message = new Message(0, "删除员工失败");
         }
         SqlSessionUtil.closeSession();
-        String json = JsonUtil.toJSON(message);
-        return json;
+        return JsonUtil.toJSON(message);
     }
 
     /**
@@ -145,10 +139,9 @@ public class AdminController {
     public String getAllUser(@RequestHeader("accessToken") String accessToken) {
         if (!accessToken.equals(finalAccessToken)) {
             message = new Message(0, "accessToken错误");
-            String json = JsonUtil.toJSON(message);
-            return json;
+            return JsonUtil.toJSON(message);
         }
-        SqlSession session = SqlSessionUtil.getSesion();
+        SqlSession session = SqlSessionUtil.getSession();
         UserDao userDao = session.getMapper(UserDao.class);
         DepartmentDao departmentDao = session.getMapper(DepartmentDao.class);
         List<User> list = userDao.getAll();
@@ -168,8 +161,7 @@ public class AdminController {
             message = new Message(0, "未查找到员工信息");
         }
         SqlSessionUtil.closeSession();
-        String json = JsonUtil.toJSON(message);
-        return json;
+        return JsonUtil.toJSON(message);
     }
 
     /**
@@ -183,13 +175,12 @@ public class AdminController {
     public String getAllDepartment(@RequestHeader("accessToken") String accessToken) {
         if (!accessToken.equals(finalAccessToken)) {
             message = new Message(0, "accessToken错误");
-            String json = JsonUtil.toJSON(message);
-            return json;
+            return JsonUtil.toJSON(message);
         }
-        SqlSession session = SqlSessionUtil.getSesion();
+        SqlSession session = SqlSessionUtil.getSession();
         DepartmentDao departmentDao = session.getMapper(DepartmentDao.class);
         List<Department> list = departmentDao.findAll();
-        List<Map> list1 = new ArrayList<>();
+        List<Map<String, Object>> list1 = new ArrayList<>();
 
         boolean flag = false;
 
@@ -213,9 +204,8 @@ public class AdminController {
             message = new Message(0, "当前无部门");
         }
         SqlSessionUtil.closeSession();
-        String json = JsonUtil.toJSON(message);
 
-        return json;
+        return JsonUtil.toJSON(message);
     }
 
     /**
@@ -232,15 +222,14 @@ public class AdminController {
 
         if (!accessToken.equals(finalAccessToken)) {
             message = new Message(0, "accessToken错误");
-            String json = JsonUtil.toJSON(message);
-            return json;
+            return JsonUtil.toJSON(message);
         }
-        SqlSession session = SqlSessionUtil.getSesion();
+        SqlSession session = SqlSessionUtil.getSession();
         DepartmentDao departmentDao = session.getMapper(DepartmentDao.class);
         System.out.println("要查找的部门id->" + id);
         Department department = departmentDao.findDepartmentById(id);
         Map<String, Object> map = new HashMap<>();
-        if (department != null && department.getName() != "") {
+        if (department != null && !department.getName().equals("")) {
             map.put("name", department.getName());
             map.put("phone", department.getPhone());
             map.put("place", department.getPlace());
@@ -251,8 +240,7 @@ public class AdminController {
             message = new Message(0, "没有查到这个部门");
         }
         SqlSessionUtil.closeSession();
-        String json = JsonUtil.toJSON(message);
-        return json;
+        return JsonUtil.toJSON(message);
     }
 
     /**
@@ -268,10 +256,9 @@ public class AdminController {
                                    @RequestBody Department department) {
         if (!accessToken.equals(finalAccessToken)) {
             message = new Message(0, "accessToken错误");
-            String json = JsonUtil.toJSON(message);
-            return json;
+            return JsonUtil.toJSON(message);
         }
-        SqlSession session = SqlSessionUtil.getSesion();
+        SqlSession session = SqlSessionUtil.getSession();
         DepartmentDao departmentDao = session.getMapper(DepartmentDao.class);
         System.out.println("要更新的部门信息->" + department);
         int i = departmentDao.update(department);
@@ -281,8 +268,7 @@ public class AdminController {
             message = new Message(0, "修改部门信息失败");
         }
         SqlSessionUtil.closeSession();
-        String json = JsonUtil.toJSON(message);
-        return json;
+        return JsonUtil.toJSON(message);
     }
 
     /**
@@ -298,15 +284,14 @@ public class AdminController {
                                    @RequestParam("departmentId") long id) {
         if (!accessToken.equals(finalAccessToken)) {
             message = new Message(0, "accessToken错误");
-            String json = JsonUtil.toJSON(message);
-            return json;
+            return JsonUtil.toJSON(message);
         }
-        SqlSession session = SqlSessionUtil.getSesion();
+        SqlSession session = SqlSessionUtil.getSession();
         DepartmentDao departmentDao = session.getMapper(DepartmentDao.class);
         System.out.println("要删除的部门id->" + id);
         Department department = departmentDao.findDepartmentById(id);
         Map<String, Object> map = new HashMap<>();
-        if (department != null && department.getName() != "") {
+        if (department != null && !department.getName().equals("")) {
             map.put("departmentId", id);
             map.put("name", department.getName());
             map.put("phone", department.getPhone());
@@ -322,8 +307,7 @@ public class AdminController {
             message = new Message(0, "删除部门失败");
         }
         SqlSessionUtil.closeSession();
-        String json = JsonUtil.toJSON(message);
-        return json;
+        return JsonUtil.toJSON(message);
     }
 
     /**
@@ -339,11 +323,10 @@ public class AdminController {
                                    @RequestBody Department department) {
         if (!finalAccessToken.equals(accessToken)) {
             message = new Message(0, "accessToken错误");
-            String json = JsonUtil.toJSON(message);
-            return json;
+            return JsonUtil.toJSON(message);
         }
         try {
-            SqlSession session = SqlSessionUtil.getSesion();
+            SqlSession session = SqlSessionUtil.getSession();
             DepartmentDao departmentDao = session.getMapper(DepartmentDao.class);
             int i = departmentDao.add(department);
             System.out.println("新增的部门信息->" + department);
@@ -358,8 +341,7 @@ public class AdminController {
             }
         }
         SqlSessionUtil.closeSession();
-        String json = JsonUtil.toJSON(message);
-        return json;
+        return JsonUtil.toJSON(message);
     }
 
     /**
@@ -367,7 +349,7 @@ public class AdminController {
      *
      * @param accessToken 头部信息，用于校验
      * @param id 要获取的部门id
-     * @return
+     * @return json
      */
     @RequestMapping(value = "/department/list", method = RequestMethod.GET)
     @ResponseBody
@@ -375,10 +357,9 @@ public class AdminController {
                                      @RequestParam("departmentId") long id) {
         if (!finalAccessToken.equals(accessToken)) {
             message = new Message(0, "accessToken错误");
-            String json = JsonUtil.toJSON(message);
-            return json;
+            return JsonUtil.toJSON(message);
         }
-        SqlSession session = SqlSessionUtil.getSesion();
+        SqlSession session = SqlSessionUtil.getSession();
         DepartmentDao departmentDao = session.getMapper(DepartmentDao.class);
         List<Department> list = departmentDao.findChild(id);
         List<DepartmentListItem> list1 = new ArrayList<>();
@@ -396,8 +377,7 @@ public class AdminController {
             message = new Message(0, "此部门没有子部门");
         }
         SqlSessionUtil.closeSession();
-        String json = JsonUtil.toJSON(message);
-        return json;
+        return JsonUtil.toJSON(message);
     }
 
     /**
@@ -405,7 +385,7 @@ public class AdminController {
      *
      * @param accessToken 头部信息，用于校验
      * @param salaryId 要删除的salary id
-     * @return
+     * @return json
      */
     @RequestMapping(value = "/salary", method = RequestMethod.DELETE)
     @ResponseBody
@@ -413,13 +393,12 @@ public class AdminController {
                                            @RequestParam long salaryId) {
         if (!finalAccessToken.equals(accessToken)) {
             message = new Message(0, "accessToken错误");
-            String json = JsonUtil.toJSON(message);
-            return json;
+            return JsonUtil.toJSON(message);
         }
 
         System.out.println("要删除的salaryId->" + salaryId);
         //获取数据访问支持
-        SqlSession session = SqlSessionUtil.getSesion();
+        SqlSession session = SqlSessionUtil.getSession();
         SalaryDao salaryDao = session.getMapper(SalaryDao.class);//对应的薪酬管理增加的薪酬数据访问层
 
         int i = salaryDao.remove(salaryId);
@@ -429,8 +408,7 @@ public class AdminController {
             message = new Message(0, "删除薪酬记录失败");
         }
         SqlSessionUtil.closeSession();
-        String json = JsonUtil.toJSON(message);
-        return json;
+        return JsonUtil.toJSON(message);
     }
 
     /**
@@ -439,7 +417,7 @@ public class AdminController {
      * @param accessToken 头部信息，用于校验
      * @param userId 指定员工id
      * @param updateSalary 封装要更新的salary信息
-     * @return
+     * @return json
      */
     @RequestMapping(value = "/salary", method = RequestMethod.PUT)
     @ResponseBody
@@ -448,8 +426,7 @@ public class AdminController {
                                                @RequestBody UpdateSalary updateSalary) {
         if (!finalAccessToken.equals(accessToken)) {
             message = new Message(0, "accessToken错误");
-            String json = JsonUtil.toJSON(message);
-            return json;
+            return JsonUtil.toJSON(message);
         }
 
         System.out.println(updateSalary);
@@ -459,7 +436,7 @@ public class AdminController {
                 updateSalary.getAllowanceSalary(), updateSalary.isFlag());
 
         //获取数据访问支持
-        SqlSession session = SqlSessionUtil.getSesion();
+        SqlSession session = SqlSessionUtil.getSession();
         SalaryDao salaryDao = session.getMapper(SalaryDao.class);//对应的薪酬管理增加的薪酬数据访问层
 
         int i = salaryDao.update(salary);
@@ -471,8 +448,7 @@ public class AdminController {
         }
 
         SqlSessionUtil.closeSession();
-        String json = JsonUtil.toJSON(message);
-        return json;
+        return JsonUtil.toJSON(message);
     }
 
     /**
@@ -481,7 +457,7 @@ public class AdminController {
      * @param accessToken 头部信息，用于校验
      * @param userId 指定的员工id
      * @param updateSalary 封装要更新的salary信息
-     * @return
+     * @return json
      */
     @RequestMapping(value = "/salary", method = RequestMethod.POST)
     @ResponseBody
@@ -490,8 +466,7 @@ public class AdminController {
                                                            @RequestBody UpdateSalary updateSalary){
         if (!finalAccessToken.equals(accessToken)) {
             message = new Message(0, "accessToken错误");
-            String json = JsonUtil.toJSON(message);
-            return json;
+            return JsonUtil.toJSON(message);
         }
 
         System.out.println(updateSalary.toString());
@@ -501,7 +476,7 @@ public class AdminController {
                 updateSalary.getAllowanceSalary(), updateSalary.isFlag());
 
         //获取数据访问支持
-        SqlSession session = SqlSessionUtil.getSesion();
+        SqlSession session = SqlSessionUtil.getSession();
         SalaryDao salaryDao = session.getMapper(SalaryDao.class);//对应的薪酬管理增加的薪酬数据访问层
 
         int i = salaryDao.add(salary);
@@ -513,8 +488,7 @@ public class AdminController {
         }
 
         SqlSessionUtil.closeSession();
-        String json = JsonUtil.toJSON(message);
-        return json;
+        return JsonUtil.toJSON(message);
     }
 
     /**
@@ -522,24 +496,23 @@ public class AdminController {
      *
      * @param accessToken 头部信息，用于校验
      * @param userId 指定的员工id
-     * @return
+     * @return json
      */
     @RequestMapping(value = "/salary", method = RequestMethod.GET)
     @ResponseBody
     public String GetListOfSalaryRecordsOfSpecifiedUserID(@RequestHeader("accessToken") String accessToken, @RequestParam("userId") long userId){
         if (!accessToken.equals(finalAccessToken)) {
             message = new Message(0, "accessToken错误");
-            String json = JsonUtil.toJSON(message);
-            return json;
+            return JsonUtil.toJSON(message);
         }
 
         //获取数据访问支持
-        SqlSession session = SqlSessionUtil.getSesion();
+        SqlSession session = SqlSessionUtil.getSession();
         SalaryDao salaryDao = session.getMapper(SalaryDao.class);//对应的薪酬管理增加的薪酬数据访问层
         UserDao userDao = session.getMapper(UserDao.class);
 
         List<Salary> salaryList = salaryDao.findSalaryByUserId(userId);
-        List<Map> returnList = new ArrayList<Map>();
+        List<Map<String,Object>> returnList = new ArrayList<>();
 
 
         boolean flag = false;
@@ -572,9 +545,8 @@ public class AdminController {
         }
 
         SqlSessionUtil.closeSession();
-        String json = JsonUtil.toJSON(message);
 
-        return json;
+        return JsonUtil.toJSON(message);
     }
 
 }

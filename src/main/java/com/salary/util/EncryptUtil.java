@@ -1,6 +1,6 @@
 package com.salary.util;
 
-import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -11,19 +11,16 @@ import java.security.NoSuchAlgorithmException;
  */
 public class EncryptUtil {
 
-    //MessageDigest对象
-    private static MessageDigest messageDigest;
-
     /**
      * 加密
      * @param password 要加密的密码
      * @return 加密后的字符串
      * @throws NoSuchAlgorithmException 没有可用的算法异常
-     * @throws UnsupportedEncodingException 不支持的编码格式异常
      */
-    public static String messageDigest(String password) throws NoSuchAlgorithmException, UnsupportedEncodingException {
-        messageDigest = MessageDigest.getInstance("SHA-256");
-        messageDigest.update(password.getBytes("UTF-8"));
+    public static String messageDigest(String password) throws NoSuchAlgorithmException {
+        //MessageDigest对象
+        MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
+        messageDigest.update(password.getBytes(StandardCharsets.UTF_8));
         return byte2Hex(messageDigest.digest());
     }
 
@@ -33,17 +30,17 @@ public class EncryptUtil {
      * @return 字符串
      */
     private static String byte2Hex(byte[] bytes) {
-        StringBuffer stringBuffer = new StringBuffer();
-        String temp = null;
-        for (int i = 0; i < bytes.length; i++) {
-            temp = Integer.toHexString(bytes[i] & 0xFF);
+        StringBuilder stringBuilder = new StringBuilder();
+        String temp;
+        for (byte aByte : bytes) {
+            temp = Integer.toHexString(aByte & 0xFF);
             if (temp.length() == 1) {
                 //1得到一位的进行补0操作
-                stringBuffer.append("0");
+                stringBuilder.append("0");
             }
-            stringBuffer.append(temp);
+            stringBuilder.append(temp);
         }
         SqlSessionUtil.closeSession();
-        return stringBuffer.toString();
+        return stringBuilder.toString();
     }
 }
