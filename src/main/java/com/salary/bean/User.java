@@ -7,22 +7,31 @@ import java.util.Date;
  */
 public class User {
 
-    private long id;
-    private String username;
-    private String password;
-    private String email;
-    private String name;
-    private int age;
-    private int gender;
-    private String phone;
-    private long departmentId;
-    private int del=0;
-    private Date registerTime;
+    private long id;//用户id
+    private String username;//用户名称
+    private String password;//用户密码
+    private String email;//用户邮箱
+    private String name;//姓名
+    private int age;//用户年龄
+    private int gender;//性别
+    private String phone;//电话
+    private long departmentId;//部门id
+    private int del=0;//delete标记
+    private Date registerTime;//注册时间
 
+    /**
+     * 无参构造函数
+     */
     public User(){
 
     }
 
+    /**
+     * 简单的带参构造函数
+     * @param username
+     * @param password
+     * @param email
+     */
     public User(String username,String password,String email){
         this.username = username;
         this.password = password;
@@ -30,11 +39,34 @@ public class User {
     }
 
 
-
+    /**
+     * 带参构造函数
+     * @param username
+     * @param password
+     * @param email
+     * @param name
+     * @param age
+     * @param gender
+     * @param phone
+     * @param departmentId
+     */
     public User(String username, String password, String email, String name, int age, int gender, String phone, long departmentId) {
         this(0L,username,password,email,name,age,gender,phone,departmentId,0);
     }
 
+    /**
+     * 带id的带参构造函数
+     * @param id
+     * @param username
+     * @param password
+     * @param email
+     * @param name
+     * @param age
+     * @param gender
+     * @param phone
+     * @param departmentId
+     * @param del
+     */
     public User(long id, String username, String password, String email, String name, int age, int gender, String phone, long departmentId, int del) {
         this.id = id;
         this.username = username;
@@ -48,94 +80,186 @@ public class User {
         this.del = del;
     }
 
+    /**
+     * 获得用户id
+     * @return
+     */
     public long getId() {
         return id;
     }
 
+    /**
+     * 修改用户id
+     * @param id
+     */
     public void setId(long id) {
         this.id = id;
     }
 
+    /**
+     * 获得用户名
+     * @return
+     */
     public String getUsername() {
         return username;
     }
 
+    /**
+     * 修改用户名
+     * @param username
+     */
     public void setUsername(String username) {
         this.username = username;
     }
 
+    /**
+     * 获得密码
+     * @return
+     */
     public String getPassword() {
         return password;
     }
 
+    /**
+     * 修改密码
+     * @param password
+     */
     public void setPassword(String password) {
         this.password = password;
     }
 
+    /**
+     * 获得邮箱
+     * @return
+     */
     public String getEmail() {
         return email;
     }
 
+    /**
+     * 修改邮箱
+     * @param email
+     */
     public void setEmail(String email) {
         this.email = email;
     }
 
+    /**
+     * 获得姓名
+     * @return
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * 修改姓名
+     * @param name
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * 获得年龄
+     * @return
+     */
     public int getAge() {
         return age;
     }
 
+    /**
+     * 修改年龄
+     * @param age
+     */
     public void setAge(int age) {
         this.age = age;
     }
 
+    /**
+     * 获得性别
+     * @return
+     */
     public int getGender() {
         return gender;
     }
 
+    /**
+     * 修改性别
+     * @param gender
+     */
     public void setGender(int gender) {
         this.gender = gender;
     }
 
+    /**
+     * 获得电话
+     * @return
+     */
     public String getPhone() {
         return phone;
     }
 
+    /**
+     * 修改电话
+     * @param phone
+     */
     public void setPhone(String phone) {
         this.phone = phone;
     }
 
+    /**
+     * 获得部门id
+     * @return
+     */
     public long getDepartmentId() {
         return departmentId;
     }
 
+    /**
+     * 修改部门id
+     * @param departmentId
+     */
     public void setDepartmentId(long departmentId) {
         this.departmentId = departmentId;
     }
 
+    /**
+     * 获得delete标记
+     * @return
+     */
     public int getDel() {
         return del;
     }
 
+    /**
+     * 修改delete标记
+     * @param del
+     */
     public void setDel(int del) {
         this.del = del;
     }
 
+    /**
+     * 获得注册时间
+     * @return
+     */
     public Date getRegisterTime() {
         return registerTime;
     }
 
+    /**
+     * 修改注册时间
+     * @param registerTime
+     */
     public void setRegisterTime(Date registerTime) {
         this.registerTime = registerTime;
     }
 
+    /**
+     * 覆写的toString方法
+     * @return
+     */
     @Override
     public String toString() {
         return "User{" +

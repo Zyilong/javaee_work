@@ -30,8 +30,8 @@ import java.util.*;
 @RequestMapping("/api/admin")
 public class AdminController {
 
-    private String finalAccessToken;
-    private Message message;
+    private String finalAccessToken;//访问令牌
+    private Message message;//消息
 
 
     /**

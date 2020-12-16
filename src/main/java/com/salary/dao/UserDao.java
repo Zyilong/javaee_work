@@ -10,21 +10,54 @@ import java.util.List;
  * mapper接口，执行用户相关操作
  */
 public interface UserDao {
-
+    /**
+     * 获取用户列表
+     * @return
+     */
     List<User> getAll();
 
+    /**
+     * 添加用户
+     * @param user
+     * @return
+     */
     int addUser(User user);
 
+    /**
+     * 删除用户
+     * @param id
+     * @return
+     */
     int removeUser(Long id);
 
+    /**
+     * 更新用户信息
+     * @param user
+     * @return
+     */
     int updateUser(User user);
 
     User login(@Param("username")String username, @Param("password")String password);
 
-    String getPassword(String password);
+    /**
+     * 通过用户名得到用户密码
+     * @param username
+     * @return
+     */
+    String getPassword(String username);
 
+    /**
+     * 通过用户id得到用户
+     * @param userId
+     * @return
+     */
     User findUserById(long userId);
 
+    /**
+     * 通过用户名得到用户
+     * @param username
+     * @return
+     */
     User findUserByUsername(String username);
 
 }

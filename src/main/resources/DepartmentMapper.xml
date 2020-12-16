@@ -44,6 +44,12 @@
         INSERT INTO department(name,phone,place,parentId,Time)
             values(#{name},#{phone},#{place},#{parentId},#{time, jdbcType=DATE})
     </insert>
+    <update id="update" parameterType="com.salary.bean.Department">
+        UPDATE department set name=#{name},phone=#{phone},place=#{place},parentId=#{parentId} WHERE id=#{id}
+    </update>
 
 
+    <select id="findChild" parameterType="Long" resultMap="rm">
+        SELECT * FROM department where parentId=#{id}
+    </select>
 </mapper>
