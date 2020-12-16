@@ -5,6 +5,8 @@ import com.salary.dao.AdminDao;
 import com.salary.dao.DepartmentDao;
 import com.salary.dao.SalaryDao;
 import com.salary.dao.UserDao;
+import com.salary.data.Message;
+import com.salary.object.*;
 import com.salary.util.DateFormatUtil;
 import com.salary.util.EncryptUtil;
 import com.salary.util.JsonUtil;
@@ -18,6 +20,11 @@ import java.security.NoSuchAlgorithmException;
 import java.sql.Timestamp;
 import java.util.*;
 
+/**
+ * 管理端的控制类
+ * @author 520
+ * @version 1.0
+ */
 @Controller
 @RequestMapping("/api/admin")
 public class AdminController {
@@ -359,7 +366,7 @@ public class AdminController {
      * 获取部门的子部门
      *
      * @param accessToken 头部信息，用于校验
-     * @param id
+     * @param id 要获取的部门id
      * @return
      */
     @RequestMapping(value = "/department/list", method = RequestMethod.GET)
@@ -396,8 +403,8 @@ public class AdminController {
     /**
      * 删除指定ID的薪酬记录
      *
-     * @param accessToken
-     * @param salaryId
+     * @param accessToken 头部信息，用于校验
+     * @param salaryId 要删除的salary id
      * @return
      */
     @RequestMapping(value = "/salary", method = RequestMethod.DELETE)
@@ -429,9 +436,9 @@ public class AdminController {
     /**
      * 更新指定员工的薪酬信息
      *
-     * @param accessToken
-     * @param userId
-     * @param updateSalary
+     * @param accessToken 头部信息，用于校验
+     * @param userId 指定员工id
+     * @param updateSalary 封装要更新的salary信息
      * @return
      */
     @RequestMapping(value = "/salary", method = RequestMethod.PUT)
@@ -471,9 +478,9 @@ public class AdminController {
     /**
      * 给指定员工添加员工薪酬
      *
-     * @param accessToken
-     * @param userId
-     * @param updateSalary
+     * @param accessToken 头部信息，用于校验
+     * @param userId 指定的员工id
+     * @param updateSalary 封装要更新的salary信息
      * @return
      */
     @RequestMapping(value = "/salary", method = RequestMethod.POST)
@@ -513,8 +520,8 @@ public class AdminController {
     /**
      * 获取指定员工薪酬记录列表
      *
-     * @param accessToken
-     * @param userId
+     * @param accessToken 头部信息，用于校验
+     * @param userId 指定的员工id
      * @return
      */
     @RequestMapping(value = "/salary", method = RequestMethod.GET)

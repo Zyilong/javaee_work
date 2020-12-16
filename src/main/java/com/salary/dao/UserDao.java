@@ -1,12 +1,13 @@
 package com.salary.dao;
 
 import com.salary.bean.User;
-import com.salary.bean.UserListItem;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository
+/**
+ * mapper接口，执行用户相关操作
+ */
 public interface UserDao {
 
     List<User> getAll();

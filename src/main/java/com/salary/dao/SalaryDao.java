@@ -5,7 +5,9 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository
+/**
+ * mapper接口，执行薪酬相关操作
+ */
 public interface SalaryDao {
 
     List<Salary> findSalaryByUserId(Long userId);

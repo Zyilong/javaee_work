@@ -1,4 +1,4 @@
-package com.salary.bean;
+package com.salary.object;
 
 import java.util.Date;
 

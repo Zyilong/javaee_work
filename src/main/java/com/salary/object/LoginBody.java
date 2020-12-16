@@ -1,23 +1,11 @@
-package com.salary.bean;
+package com.salary.object;
 
 import com.salary.util.EncryptUtil;
-import com.salary.util.SqlSessionUtil;
 
-import java.security.MessageDigest;
 
-public class UserRegisterBody {
-    private String email;
+public class LoginBody {
     private String username;
     private String password;
-    private String verifyCode;
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
 
     public String getUsername() {
         return username;
@@ -40,21 +28,14 @@ public class UserRegisterBody {
         }
     }
 
-    public String getVerifyCode() {
-        return verifyCode;
-    }
-
-    public void setVerifyCode(String verifyCode) {
-        this.verifyCode = verifyCode;
+    public LoginBody() {
     }
 
     @Override
     public String toString() {
-        return "UserRegisterBody{" +
-                "email='" + email + '\'' +
-                ", username='" + username + '\'' +
+        return "LoginBody{" +
+                "username='" + username + '\'' +
                 ", password='" + password + '\'' +
-                ", verifyCode='" + verifyCode + '\'' +
                 '}';
     }
 }

@@ -2,7 +2,11 @@ package com.salary.bean;
 
 import java.util.Date;
 
+/**
+ * 部门实体类
+ */
 public class Department {
+
     private long id;
     private String name;
     private String phone;

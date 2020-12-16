@@ -1,5 +1,9 @@
-package com.salary.bean;
+package com.salary.data;
 
+/**
+ * 封装消息的实体类
+ * @author Zylong
+ */
 public class Message {
 
     //状态码：1成功，0表示失败
