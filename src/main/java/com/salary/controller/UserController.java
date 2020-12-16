@@ -157,7 +157,7 @@ public class UserController {
                 if(salaryList.size()!=0){
                     message = new Message(1,"ok",items);
                 }else{
-                    message = new Message(0,"不存在该员工薪酬信息");
+                    message = new Message(1,"不存在该员工薪酬信息");
                 }
             }
         }

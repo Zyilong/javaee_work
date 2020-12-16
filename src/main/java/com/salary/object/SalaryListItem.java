@@ -30,7 +30,6 @@ public class SalaryListItem {
 
     /**
      * 获得岗位工资
-     * @return
      */
     public float getPostSalary() {
         return postSalary;
@@ -38,7 +37,6 @@ public class SalaryListItem {
 
     /**
      * 修改岗位工资
-     * @param postSalary
      */
     public void setPostSalary(float postSalary) {
         this.postSalary = postSalary;
@@ -46,7 +44,6 @@ public class SalaryListItem {
 
     /**
      * 获得绩效工资
-     * @return
      */
     public float getPerformanceSalary() {
         return performanceSalary;
@@ -54,7 +51,6 @@ public class SalaryListItem {
 
     /**
      * 修改绩效工资
-     * @param performanceSalary
      */
     public void setPerformanceSalary(float performanceSalary) {
         this.performanceSalary = performanceSalary;
@@ -62,7 +58,6 @@ public class SalaryListItem {
 
     /**
      * 获得工龄工资
-     * @return
      */
     public float getWorkYearSalarySalary() {
         return workYearSalarySalary;
@@ -70,7 +65,6 @@ public class SalaryListItem {
 
     /**
      * 修改工龄工资
-     * @param workYearSalarySalary
      */
     public void setWorkYearSalarySalary(float workYearSalarySalary) {
         this.workYearSalarySalary = workYearSalarySalary;
@@ -78,7 +72,6 @@ public class SalaryListItem {
 
     /**
      * 获得津贴补助
-     * @return
      */
     public float getAllowanceSalary() {
         return allowanceSalary;
@@ -86,7 +79,6 @@ public class SalaryListItem {
 
     /**
      * 修改津贴补助
-     * @param allowanceSalary
      */
     public void setAllowanceSalary(float allowanceSalary) {
         this.allowanceSalary = allowanceSalary;
@@ -94,7 +86,6 @@ public class SalaryListItem {
 
     /**
      * 获得发放标记
-     * @return
      */
     public boolean isFlag() {
         return flag;
@@ -102,7 +93,6 @@ public class SalaryListItem {
 
     /**
      * 修改发放标记
-     * @param flag
      */
     public void setFlag(boolean flag) {
         this.flag = flag;
@@ -110,7 +100,6 @@ public class SalaryListItem {
 
     /**
      * 获得成立时间
-     * @return
      */
     public Date getTime() {
         return time;
@@ -118,7 +107,6 @@ public class SalaryListItem {
 
     /**
      * 修改成立时间
-     * @param time
      */
     public void setTime(Date time) {
         this.time = time;

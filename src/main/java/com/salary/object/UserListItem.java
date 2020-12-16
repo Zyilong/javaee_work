@@ -21,17 +21,6 @@ public class UserListItem {
 
     /**
      * 带参构造函数
-     * @param userId
-     * @param username
-     * @param name
-     * @param age
-     * @param gender
-     * @param phone
-     * @param department
-     * @param departmentId
-     * @param del
-     * @param registerTime
-     * @param email
      */
     public UserListItem(long userId, String username, String name, int age, int gender, String phone, String department, long departmentId, int del, String registerTime, String email) {
         this.userId = userId;
@@ -49,7 +38,6 @@ public class UserListItem {
 
     /**
      * 获得删除标记
-     * @return
      */
     public int getDel() {
         return del;
@@ -57,7 +45,6 @@ public class UserListItem {
 
     /**
      * 修改删除标记
-     * @param del
      */
     public void setDel(int del) {
         this.del = del;
@@ -65,7 +52,6 @@ public class UserListItem {
 
     /**
      * 获得注册时间
-     * @return
      */
     public String getRegisterTime() {
         return registerTime;
@@ -73,7 +59,6 @@ public class UserListItem {
 
     /**
      * 修改注册时间
-     * @param registerTime
      */
     public void setRegisterTime(String registerTime) {
         this.registerTime = registerTime;
@@ -81,7 +66,6 @@ public class UserListItem {
 
     /**
      * 获得部门id
-     * @return
      */
     public long getDepartmentId() {
         return departmentId;
@@ -89,7 +73,6 @@ public class UserListItem {
 
     /**
      * 修改部门id
-     * @param departmentId
      */
     public void setDepartmentId(long departmentId) {
         this.departmentId = departmentId;
@@ -97,7 +80,6 @@ public class UserListItem {
 
     /**
      * 获得用户id
-     * @return
      */
     public long getUserId() {
         return userId;

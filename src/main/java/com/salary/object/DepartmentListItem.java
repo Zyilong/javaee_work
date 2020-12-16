@@ -18,13 +18,6 @@ public class DepartmentListItem {
 
     /**
      * 有参构造函数
-     * @param id
-     * @param name
-     * @param phone
-     * @param place
-     * @param parentId
-     * @param parentName
-     * @param time
      */
     public DepartmentListItem(long id, String name, String phone, String place, long parentId, String parentName, String time) {
         this.id = id;
@@ -38,7 +31,6 @@ public class DepartmentListItem {
 
     /**
      * 获得id
-     * @return
      */
     public long getId() {
         return id;
@@ -46,7 +38,6 @@ public class DepartmentListItem {
 
     /**
      * 修改id
-     * @param id
      */
     public void setId(long id) {
         this.id = id;
@@ -54,7 +45,6 @@ public class DepartmentListItem {
 
     /**
      * 获得部门名
-     * @return
      */
     public String getName() {
         return name;
@@ -62,7 +52,6 @@ public class DepartmentListItem {
 
     /**
      * 修改部门名
-     * @param name
      */
     public void setName(String name) {
         this.name = name;
@@ -70,7 +59,6 @@ public class DepartmentListItem {
 
     /**
      * 获得部门电话
-     * @return
      */
     public String getPhone() {
         return phone;
@@ -78,7 +66,6 @@ public class DepartmentListItem {
 
     /**
      * 修改部门电话
-     * @param phone
      */
     public void setPhone(String phone) {
         this.phone = phone;
@@ -86,7 +73,6 @@ public class DepartmentListItem {
 
     /**
      * 获得部门地址
-     * @return
      */
     public String getPlace() {
         return place;
@@ -94,7 +80,6 @@ public class DepartmentListItem {
 
     /**
      * 修改部门地址
-     * @param place
      */
     public void setPlace(String place) {
         this.place = place;
@@ -102,7 +87,6 @@ public class DepartmentListItem {
 
     /**
      * 获得父部门id
-     * @return
      */
     public long getParentId() {
         return parentId;
@@ -110,7 +94,6 @@ public class DepartmentListItem {
 
     /**
      * 修改父部门id
-     * @param parentId
      */
     public void setParentId(long parentId) {
         this.parentId = parentId;
@@ -118,7 +101,6 @@ public class DepartmentListItem {
 
     /**
      * 获得父部门名
-     * @return
      */
     public String getParentName() {
         return parentName;
@@ -126,7 +108,6 @@ public class DepartmentListItem {
 
     /**
      * 修改父部门名
-     * @param parentName
      */
     public void setParentName(String parentName) {
         this.parentName = parentName;
@@ -134,7 +115,6 @@ public class DepartmentListItem {
 
     /**
      * 获得成立时间
-     * @return
      */
     public String getTime() {
         return time;
@@ -142,7 +122,6 @@ public class DepartmentListItem {
 
     /**
      * 修改成立时间
-     * @param time
      */
     public void setTime(String time) {
         this.time = time;

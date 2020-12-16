@@ -24,12 +24,6 @@ public class UpdateSalary {
 
     /**
      * 有参构造函数
-     * @param salaryId
-     * @param postSalary
-     * @param performanceSalary
-     * @param workYearSalary
-     * @param allowanceSalary
-     * @param flag
      */
     public UpdateSalary(Long salaryId, float postSalary, float performanceSalary, float workYearSalary, float allowanceSalary, boolean flag) {
         this.salaryId = salaryId;
@@ -42,7 +36,6 @@ public class UpdateSalary {
 
     /**
      * 获得薪酬id
-     * @return
      */
     public Long getSalaryId() {
         return salaryId;
@@ -50,7 +43,6 @@ public class UpdateSalary {
 
     /**
      * 修改薪酬id
-     * @param salaryId
      */
     public void setSalaryId(Long salaryId) {
         this.salaryId = salaryId;
@@ -58,7 +50,6 @@ public class UpdateSalary {
 
     /**
      * 获得岗位工资
-     * @return
      */
     public float getPostSalary() {
         return postSalary;
@@ -66,7 +57,6 @@ public class UpdateSalary {
 
     /**
      * 修改岗位工资
-     * @param postSalary
      */
     public void setPostSalary(float postSalary) {
         this.postSalary = postSalary;
@@ -74,7 +64,6 @@ public class UpdateSalary {
 
     /**
      * 获得绩效工资
-     * @return
      */
     public float getPerformanceSalary() {
         return performanceSalary;
@@ -82,7 +71,6 @@ public class UpdateSalary {
 
     /**
      * 修改绩效工资
-     * @param performanceSalary
      */
     public void setPerformanceSalary(float performanceSalary) {
         this.performanceSalary = performanceSalary;
@@ -90,7 +78,6 @@ public class UpdateSalary {
 
     /**
      * 获得工龄工资
-     * @return
      */
     public float getWorkYearSalary() {
         return workYearSalary;
@@ -98,7 +85,6 @@ public class UpdateSalary {
 
     /**
      * 修改工龄工资
-     * @param workYearSalary
      */
     public void setWorkYearSalary(float workYearSalary) {
         this.workYearSalary = workYearSalary;
@@ -106,7 +92,6 @@ public class UpdateSalary {
 
     /**
      * 获得津贴补助
-     * @return
      */
     public float getAllowanceSalary() {
         return allowanceSalary;
@@ -114,7 +99,6 @@ public class UpdateSalary {
 
     /**
      * 修改津贴补助
-     * @param allowanceSalary
      */
     public void setAllowanceSalary(float allowanceSalary) {
         this.allowanceSalary = allowanceSalary;
@@ -122,7 +106,6 @@ public class UpdateSalary {
 
     /**
      * 获得发放标记
-     * @return
      */
     public boolean isFlag() {
         return flag;
@@ -130,7 +113,6 @@ public class UpdateSalary {
 
     /**
      * 修改发放标记
-     * @param flag
      */
     public void setFlag(boolean flag) {
         this.flag = flag;
@@ -138,7 +120,6 @@ public class UpdateSalary {
 
     /**
      * 覆写的toString方法
-     * @return
      */
     @Override
     public String toString() {
@@ -153,8 +134,6 @@ public class UpdateSalary {
 
     /**
      * 覆写的equals方法
-     * @param o
-     * @return
      */
     @Override
     public boolean equals(Object o) {
@@ -166,7 +145,6 @@ public class UpdateSalary {
 
     /**
      * 覆写的hashCode方法
-     * @return
      */
     @Override
     public int hashCode() {

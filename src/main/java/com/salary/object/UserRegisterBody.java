@@ -13,7 +13,6 @@ public class UserRegisterBody {
 
     /**
      * 获得邮箱
-     * @return
      */
     public String getEmail() {
         return email;
@@ -21,7 +20,6 @@ public class UserRegisterBody {
 
     /**
      * 修改邮箱
-     * @param email
      */
     public void setEmail(String email) {
         this.email = email;
@@ -29,7 +27,6 @@ public class UserRegisterBody {
 
     /**
      * 获得用户名
-     * @return
      */
     public String getUsername() {
         return username;
@@ -37,7 +34,6 @@ public class UserRegisterBody {
 
     /**
      * 修改用户名
-     * @param username
      */
     public void setUsername(String username) {
         this.username = username;
@@ -45,7 +41,6 @@ public class UserRegisterBody {
 
     /**
      * 获得密码
-     * @return
      */
     public String getPassword() {
         return password;
@@ -53,7 +48,6 @@ public class UserRegisterBody {
 
     /**
      * 修改密码
-     * @param password
      */
     public void setPassword(String password) {
         try{
@@ -66,7 +60,6 @@ public class UserRegisterBody {
 
     /**
      * 获得验证码
-     * @return
      */
     public String getVerifyCode() {
         return verifyCode;
@@ -74,7 +67,6 @@ public class UserRegisterBody {
 
     /**
      * 修改验证码
-     * @param verifyCode
      */
     public void setVerifyCode(String verifyCode) {
         this.verifyCode = verifyCode;
@@ -82,7 +74,6 @@ public class UserRegisterBody {
 
     /**
      * 覆写的toString方法
-     * @return
      */
     @Override
     public String toString() {
