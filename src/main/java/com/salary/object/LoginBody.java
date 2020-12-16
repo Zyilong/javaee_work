@@ -9,7 +9,6 @@ public class LoginBody {
 
     /**
      * 获得用户名
-     * @return
      */
     public String getUsername() {
         return username;
@@ -17,7 +16,6 @@ public class LoginBody {
 
     /**
      * 修改用户名
-     * @param username
      */
     public void setUsername(String username) {
         this.username = username;
@@ -25,7 +23,6 @@ public class LoginBody {
 
     /**
      * 获得密码
-     * @return
      */
     public String getPassword() {
         return password;
@@ -33,7 +30,6 @@ public class LoginBody {
 
     /**
      * 修改密码
-     * @param password
      */
     public void setPassword(String password) {
         try{
@@ -45,7 +41,6 @@ public class LoginBody {
     }
 
     /**
-     *
      * 无参构造函数
      */
     public LoginBody() {
@@ -53,7 +48,6 @@ public class LoginBody {
 
     /**
      * 覆写的toString方法
-     * @return
      */
     @Override
     public String toString() {

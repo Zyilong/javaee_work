@@ -58,7 +58,9 @@ public class AdminController {
                 e.printStackTrace();
             }
             System.out.println("生成的accessToken->" + accessToken);
-            message = new Message(1, "ok", accessToken);
+            Map<String,String> map = new HashMap<>();
+            map.put("accessToken",accessToken);
+            message = new Message(1, "ok", map);
             finalAccessToken = accessToken;
         } else {
             message = new Message(0, "登录失败，请检查用户名和密码是否正确");
@@ -201,7 +203,7 @@ public class AdminController {
         if (flag) {
             message = new Message(1, "ok", list1);
         } else {
-            message = new Message(0, "当前无部门");
+            message = new Message(1, "当前无部门");
         }
         SqlSessionUtil.closeSession();
 
@@ -374,7 +376,7 @@ public class AdminController {
         if (flag) {
             message = new Message(1, "ok", list1);
         } else {
-            message = new Message(0, "此部门没有子部门");
+            message = new Message(1, "此部门没有子部门");
         }
         SqlSessionUtil.closeSession();
         return JsonUtil.toJSON(message);
@@ -541,7 +543,7 @@ public class AdminController {
         if (flag) {
             message = new Message(1, "ok", returnList);
         } else {
-            message = new Message(0, "当前员工没有薪酬记录");
+            message = new Message(1, "当前员工没有薪酬记录");
         }
 
         SqlSessionUtil.closeSession();

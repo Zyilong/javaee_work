@@ -28,9 +28,6 @@ public class User {
 
     /**
      * 简单的带参构造函数
-     * @param username
-     * @param password
-     * @param email
      */
     public User(String username,String password,String email){
         this.username = username;
@@ -41,14 +38,6 @@ public class User {
 
     /**
      * 带参构造函数
-     * @param username
-     * @param password
-     * @param email
-     * @param name
-     * @param age
-     * @param gender
-     * @param phone
-     * @param departmentId
      */
     public User(String username, String password, String email, String name, int age, int gender, String phone, long departmentId) {
         this(0L,username,password,email,name,age,gender,phone,departmentId,0);
@@ -56,16 +45,6 @@ public class User {
 
     /**
      * 带id的带参构造函数
-     * @param id
-     * @param username
-     * @param password
-     * @param email
-     * @param name
-     * @param age
-     * @param gender
-     * @param phone
-     * @param departmentId
-     * @param del
      */
     public User(long id, String username, String password, String email, String name, int age, int gender, String phone, long departmentId, int del) {
         this.id = id;
@@ -82,7 +61,6 @@ public class User {
 
     /**
      * 获得用户id
-     * @return
      */
     public long getId() {
         return id;
@@ -90,7 +68,6 @@ public class User {
 
     /**
      * 修改用户id
-     * @param id
      */
     public void setId(long id) {
         this.id = id;
@@ -98,7 +75,6 @@ public class User {
 
     /**
      * 获得用户名
-     * @return
      */
     public String getUsername() {
         return username;
@@ -106,7 +82,6 @@ public class User {
 
     /**
      * 修改用户名
-     * @param username
      */
     public void setUsername(String username) {
         this.username = username;
@@ -114,7 +89,6 @@ public class User {
 
     /**
      * 获得密码
-     * @return
      */
     public String getPassword() {
         return password;
@@ -122,7 +96,6 @@ public class User {
 
     /**
      * 修改密码
-     * @param password
      */
     public void setPassword(String password) {
         this.password = password;
@@ -130,7 +103,6 @@ public class User {
 
     /**
      * 获得邮箱
-     * @return
      */
     public String getEmail() {
         return email;
@@ -138,7 +110,6 @@ public class User {
 
     /**
      * 修改邮箱
-     * @param email
      */
     public void setEmail(String email) {
         this.email = email;
@@ -146,7 +117,6 @@ public class User {
 
     /**
      * 获得姓名
-     * @return
      */
     public String getName() {
         return name;
