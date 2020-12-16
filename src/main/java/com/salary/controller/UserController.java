@@ -94,7 +94,7 @@ public class UserController {
 
         if(!accessToken.equals(AccessTokenHolder.getUserToken(userId))){
 
-            message = new Message(0, "accessToken错误");
+            message = new Message(-1, "accessToken错误");
 
         }else{
             User user = userDao.findUserById(userId);
@@ -119,7 +119,7 @@ public class UserController {
         SqlSession session = SqlSessionUtil.getSession();
         UserDao userDao = session.getMapper(UserDao.class);
         if(!accessToken.equals(AccessTokenHolder.getUserToken(userId))){
-            message = new Message(0, "accessToken错误");
+            message = new Message(-1, "accessToken错误");
         }else{
             User user = new User();
             user.setId(userId);
@@ -150,7 +150,7 @@ public class UserController {
         UserDao userDao = session.getMapper(UserDao.class);
         SalaryDao salaryDao = session.getMapper(SalaryDao.class);
         if(!accessToken.equals(AccessTokenHolder.getUserToken(userId))){
-            message = new Message(0, "accessToken错误");
+            message = new Message(-1, "accessToken错误");
         }else{
             if(userDao.findUserById(userId)==null){
                 message = new Message(0,"用户不存在");

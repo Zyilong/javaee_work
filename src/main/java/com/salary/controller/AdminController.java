@@ -81,7 +81,7 @@ public class AdminController {
                              @RequestParam("userId") long id,
                              @RequestBody User user) {
         if (!accessToken.equals(finalAccessToken)) {
-            message = new Message(0, "accessToken错误");
+            message = new Message(-1, "accessToken错误");
             return JsonUtil.toJSON(message);
         }
         SqlSession session = SqlSessionUtil.getSession();
@@ -111,7 +111,7 @@ public class AdminController {
     public String removeUser(@RequestHeader("accessToken") String accessToken,
                              @RequestParam("userId") long id) {
         if (!accessToken.equals(finalAccessToken)) {
-            message = new Message(0, "accessToken错误");
+            message = new Message(-1, "accessToken错误");
             return JsonUtil.toJSON(message);
         }
         SqlSession session = SqlSessionUtil.getSession();
@@ -138,7 +138,7 @@ public class AdminController {
     @ResponseBody
     public String getAllUser(@RequestHeader("accessToken") String accessToken) {
         if (!accessToken.equals(finalAccessToken)) {
-            message = new Message(0, "accessToken错误");
+            message = new Message(-1, "accessToken错误");
             return JsonUtil.toJSON(message);
         }
         SqlSession session = SqlSessionUtil.getSession();
@@ -174,7 +174,7 @@ public class AdminController {
     @ResponseBody
     public String getAllDepartment(@RequestHeader("accessToken") String accessToken) {
         if (!accessToken.equals(finalAccessToken)) {
-            message = new Message(0, "accessToken错误");
+            message = new Message(-1, "accessToken错误");
             return JsonUtil.toJSON(message);
         }
         SqlSession session = SqlSessionUtil.getSession();
@@ -221,7 +221,7 @@ public class AdminController {
                                  @RequestParam("departmentId") long id) {
 
         if (!accessToken.equals(finalAccessToken)) {
-            message = new Message(0, "accessToken错误");
+            message = new Message(-1, "accessToken错误");
             return JsonUtil.toJSON(message);
         }
         SqlSession session = SqlSessionUtil.getSession();
@@ -255,7 +255,7 @@ public class AdminController {
     public String updateDepartment(@RequestHeader("accessToken") String accessToken,
                                    @RequestBody Department department) {
         if (!accessToken.equals(finalAccessToken)) {
-            message = new Message(0, "accessToken错误");
+            message = new Message(-1, "accessToken错误");
             return JsonUtil.toJSON(message);
         }
         SqlSession session = SqlSessionUtil.getSession();
@@ -283,7 +283,7 @@ public class AdminController {
     public String removeDepartment(@RequestHeader("accessToken") String accessToken,
                                    @RequestParam("departmentId") long id) {
         if (!accessToken.equals(finalAccessToken)) {
-            message = new Message(0, "accessToken错误");
+            message = new Message(-1, "accessToken错误");
             return JsonUtil.toJSON(message);
         }
         SqlSession session = SqlSessionUtil.getSession();
@@ -322,7 +322,7 @@ public class AdminController {
     public String insertDepartment(@RequestHeader("accessToken") String accessToken,
                                    @RequestBody Department department) {
         if (!finalAccessToken.equals(accessToken)) {
-            message = new Message(0, "accessToken错误");
+            message = new Message(-1, "accessToken错误");
             return JsonUtil.toJSON(message);
         }
         try {
@@ -356,7 +356,7 @@ public class AdminController {
     public String getChildDepartment(@RequestHeader("accessToken") String accessToken,
                                      @RequestParam("departmentId") long id) {
         if (!finalAccessToken.equals(accessToken)) {
-            message = new Message(0, "accessToken错误");
+            message = new Message(-1, "accessToken错误");
             return JsonUtil.toJSON(message);
         }
         SqlSession session = SqlSessionUtil.getSession();
@@ -392,7 +392,7 @@ public class AdminController {
     public String deleteSpecifiedIDSarlary(@RequestHeader("accessToken") String accessToken,
                                            @RequestParam long salaryId) {
         if (!finalAccessToken.equals(accessToken)) {
-            message = new Message(0, "accessToken错误");
+            message = new Message(-1, "accessToken错误");
             return JsonUtil.toJSON(message);
         }
 
@@ -425,7 +425,7 @@ public class AdminController {
                                                @RequestParam("userId") long userId,
                                                @RequestBody UpdateSalary updateSalary) {
         if (!finalAccessToken.equals(accessToken)) {
-            message = new Message(0, "accessToken错误");
+            message = new Message(-1, "accessToken错误");
             return JsonUtil.toJSON(message);
         }
 
@@ -465,7 +465,7 @@ public class AdminController {
                                                            @RequestParam("userId") long userId,
                                                            @RequestBody UpdateSalary updateSalary){
         if (!finalAccessToken.equals(accessToken)) {
-            message = new Message(0, "accessToken错误");
+            message = new Message(-1, "accessToken错误");
             return JsonUtil.toJSON(message);
         }
 
@@ -502,7 +502,7 @@ public class AdminController {
     @ResponseBody
     public String GetListOfSalaryRecordsOfSpecifiedUserID(@RequestHeader("accessToken") String accessToken, @RequestParam("userId") long userId){
         if (!accessToken.equals(finalAccessToken)) {
-            message = new Message(0, "accessToken错误");
+            message = new Message(-1, "accessToken错误");
             return JsonUtil.toJSON(message);
         }
 
