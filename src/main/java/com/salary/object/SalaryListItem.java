@@ -8,7 +8,7 @@ public class SalaryListItem {
     private float workYearSalarySalary;//工龄工资
     private float allowanceSalary;//津贴补助
     private boolean flag=false;//发放标记
-    private Date time;//发放时间
+    private String time;//发放时间
 
     /**
      * 构造函数
@@ -19,7 +19,7 @@ public class SalaryListItem {
      * @param flag
      * @param time
      */
-    public SalaryListItem(float postSalary, float performanceSalary, float workYearSalarySalary, float allowanceSalary, boolean flag, Date time) {
+    public SalaryListItem(float postSalary, float performanceSalary, float workYearSalarySalary, float allowanceSalary, boolean flag, String time) {
         this.postSalary = postSalary;
         this.performanceSalary = performanceSalary;
         this.workYearSalarySalary = workYearSalarySalary;
@@ -101,14 +101,14 @@ public class SalaryListItem {
     /**
      * 获得成立时间
      */
-    public Date getTime() {
+    public String getTime() {
         return time;
     }
 
     /**
      * 修改成立时间
      */
-    public void setTime(Date time) {
+    public void setTime(String time) {
         this.time = time;
     }
 }

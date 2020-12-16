@@ -40,7 +40,6 @@ public class EncryptUtil {
             }
             stringBuilder.append(temp);
         }
-        SqlSessionUtil.closeSession();
         return stringBuilder.toString();
     }
 }
