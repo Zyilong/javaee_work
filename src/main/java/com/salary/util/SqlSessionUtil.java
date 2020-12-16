@@ -26,7 +26,7 @@ public class SqlSessionUtil {
     public static SqlSession getSesion(){
         SqlSession session = threadLocal.get();
         if(session == null){
-            session = sqlSessionFactory.openSession();
+            session = sqlSessionFactory.openSession(true);
             threadLocal.set(session);
         }
         return session;

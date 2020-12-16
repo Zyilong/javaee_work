@@ -3,18 +3,17 @@ package com.salary.controller;
 import com.salary.bean.*;
 import com.salary.dao.AdminDao;
 import com.salary.dao.DepartmentDao;
+import com.salary.dao.SalaryDao;
 import com.salary.dao.UserDao;
 import com.salary.util.DateFormatUtil;
 import com.salary.util.EncryptUtil;
 import com.salary.util.JsonUtil;
 import com.salary.util.SqlSessionUtil;
 import org.apache.ibatis.session.SqlSession;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.UnsupportedEncodingException;
-import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Timestamp;
 import java.util.*;
@@ -39,6 +38,7 @@ public class AdminController {
         SqlSession session = SqlSessionUtil.getSesion();
         AdminDao adminDao = session.getMapper(AdminDao.class);
         String password1 = adminDao.getPassword(loginBody.getUsername());
+        System.out.println(loginBody.getPassword());
 
         if (password1 != null && password1 != "" && password1.equals(loginBody.getPassword())) {
             String token = loginBody.getUsername() + new Timestamp(System.currentTimeMillis()).toString();
@@ -155,7 +155,6 @@ public class AdminController {
             list1.add(u1);
             flag = true;
         }
-
         if (flag) {
             message = new Message(1, "ok", list1);
         } else {
@@ -391,6 +390,184 @@ public class AdminController {
         }
         SqlSessionUtil.closeSession();
         String json = JsonUtil.toJSON(message);
+        return json;
+    }
+
+    /**
+     * 删除指定ID的薪酬记录
+     *
+     * @param accessToken
+     * @param salaryId
+     * @return
+     */
+    @RequestMapping(value = "/salary", method = RequestMethod.DELETE)
+    @ResponseBody
+    public String deleteSpecifiedIDSarlary(@RequestHeader("accessToken") String accessToken,
+                                           @RequestParam String salaryId) {
+        if (!finalAccessToken.equals(accessToken)) {
+            message = new Message(0, "accessToken错误");
+            String json = JsonUtil.toJSON(message);
+            return json;
+        }
+
+        System.out.println("要删除的salaryId->" + salaryId);
+        long id = Long.parseLong(salaryId);
+        //获取数据访问支持
+        SqlSession session = SqlSessionUtil.getSesion();
+        SalaryDao salaryDao = session.getMapper(SalaryDao.class);//对应的薪酬管理增加的薪酬数据访问层
+
+        int i = salaryDao.remove(id);
+        if (i != 0) {
+            message = new Message(1, "ok");
+        } else {
+            message = new Message(0, "删除薪酬记录失败");
+        }
+        SqlSessionUtil.closeSession();
+        String json = JsonUtil.toJSON(message);
+        return json;
+    }
+
+    /**
+     * 更新指定员工的薪酬信息
+     *
+     * @param accessToken
+     * @param userId
+     * @param updateSalary
+     * @return
+     */
+    @RequestMapping(value = "/salary", method = RequestMethod.PUT)
+    @ResponseBody
+    public String updateSpecifiedUserIDSarlary(@RequestHeader("accessToken") String accessToken,
+                                               @RequestParam("userId") long userId,
+                                               @RequestBody UpdateSalary updateSalary) {
+        if (!finalAccessToken.equals(accessToken)) {
+            message = new Message(0, "accessToken错误");
+            String json = JsonUtil.toJSON(message);
+            return json;
+        }
+
+        System.out.println(updateSalary);
+
+        Salary salary = new Salary(updateSalary.getSalaryId(), userId, new Date(), updateSalary.getPostSalary(),
+                updateSalary.getPerformanceSalary(), updateSalary.getWorkYearSalary(),
+                updateSalary.getAllowanceSalary(), updateSalary.isFlag());
+
+        //获取数据访问支持
+        SqlSession session = SqlSessionUtil.getSesion();
+        SalaryDao salaryDao = session.getMapper(SalaryDao.class);//对应的薪酬管理增加的薪酬数据访问层
+
+        int i = salaryDao.update(salary);
+
+        if (i != 0) {
+            message = new Message(1, "ok");
+        } else {
+            message = new Message(0, "更新员工薪酬信息失败");
+        }
+
+        SqlSessionUtil.closeSession();
+        String json = JsonUtil.toJSON(message);
+        return json;
+    }
+
+    /**
+     * 给指定员工添加员工薪酬
+     *
+     * @param accessToken
+     * @param userId
+     * @param updateSalary
+     * @return
+     */
+    @RequestMapping(value = "/salary", method = RequestMethod.POST)
+    @ResponseBody
+    public String addEmployeeCompensationToSpecifiedUserID(@RequestHeader("accessToken") String accessToken,
+                                                           @RequestParam("userId") long userId,
+                                                           @RequestBody UpdateSalary updateSalary){
+        if (!finalAccessToken.equals(accessToken)) {
+            message = new Message(0, "accessToken错误");
+            String json = JsonUtil.toJSON(message);
+            return json;
+        }
+
+        System.out.println(updateSalary.toString());
+
+        Salary salary = new Salary(userId, new Date(), updateSalary.getPostSalary(),
+                updateSalary.getPerformanceSalary(), updateSalary.getWorkYearSalary(),
+                updateSalary.getAllowanceSalary(), updateSalary.isFlag());
+
+        //获取数据访问支持
+        SqlSession session = SqlSessionUtil.getSesion();
+        SalaryDao salaryDao = session.getMapper(SalaryDao.class);//对应的薪酬管理增加的薪酬数据访问层
+
+        int i = salaryDao.add(salary);
+
+        if (i != 0) {
+            message = new Message(1, "ok");
+        } else {
+            message = new Message(0, "给指定员工添加员工薪酬失败");
+        }
+
+        SqlSessionUtil.closeSession();
+        String json = JsonUtil.toJSON(message);
+        return json;
+    }
+
+    /**
+     * 获取指定员工薪酬记录列表
+     *
+     * @param accessToken
+     * @param userId
+     * @return
+     */
+    @RequestMapping(value = "/salary", method = RequestMethod.GET)
+    @ResponseBody
+    public String GetListOfSalaryRecordsOfSpecifiedUserID(@RequestHeader("accessToken") String accessToken, @RequestParam("userId") long userId){
+        if (!accessToken.equals(finalAccessToken)) {
+            message = new Message(0, "accessToken错误");
+            String json = JsonUtil.toJSON(message);
+            return json;
+        }
+
+        //获取数据访问支持
+        SqlSession session = SqlSessionUtil.getSesion();
+        SalaryDao salaryDao = session.getMapper(SalaryDao.class);//对应的薪酬管理增加的薪酬数据访问层
+        UserDao userDao = session.getMapper(UserDao.class);
+
+        List<Salary> salaryList = salaryDao.findSalaryByUserId(userId);
+        List<Map> returnList = new ArrayList<Map>();
+
+
+        boolean flag = false;
+
+        for (Salary salary : salaryList) {
+            Map<String, Object> map = new HashMap<>();
+            map.put("salaryId", salary.getId());
+
+            User user = userDao.findUserById(salary.getUserId());
+
+            map.put("username", user.getUsername());
+            map.put("userId", salary.getUserId());
+            map.put("name", user.getName());
+            map.put("postSalary", salary.getPost());
+            map.put("workYearSalary", salary.getWorkYearSalary());
+            map.put("performanceSalary",salary.getPerformance());
+            map.put("allowanceSalary", salary.getAllowance());
+            map.put("flag", salary.isFlag());
+            String date = DateFormatUtil.format(salary.getTime());
+            map.put("time", date);
+            returnList.add(map);
+            flag = true;
+        }
+
+
+        if (flag) {
+            message = new Message(1, "ok", returnList);
+        } else {
+            message = new Message(0, "当前员工没有薪酬记录");
+        }
+
+        SqlSessionUtil.closeSession();
+        String json = JsonUtil.toJSON(message);
+
         return json;
     }
 

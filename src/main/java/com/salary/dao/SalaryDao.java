@@ -10,11 +10,11 @@ public interface SalaryDao {
 
     List<Salary> findSalaryByUserId(Long userId);
 
-    void remove(Long id);
+    int remove(Long id);
 
-    void update(Salary salary);
+    int update(Salary salary);
 
-    void add(Salary salary);
+    int add(Salary salary);
 
     void paySalary(Long id);
 
