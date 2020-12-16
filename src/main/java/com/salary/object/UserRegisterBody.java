@@ -1,4 +1,4 @@
-package com.salary.bean;
+package com.salary.object;
 
 import com.salary.util.EncryptUtil;
 import com.salary.util.SqlSessionUtil;

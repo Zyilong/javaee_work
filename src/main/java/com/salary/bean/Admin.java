@@ -1,6 +1,10 @@
 package com.salary.bean;
 
+/**
+ * 管理员的实体类
+ */
 public class Admin {
+
     private long id;
     private String username;
     private String password;

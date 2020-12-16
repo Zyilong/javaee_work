@@ -1,9 +1,7 @@
-package com.salary.bean;
+package com.salary.object;
 
 import com.salary.util.EncryptUtil;
-import com.salary.util.SqlSessionUtil;
 
-import java.security.MessageDigest;
 
 public class LoginBody {
     private String username;
@@ -33,4 +31,11 @@ public class LoginBody {
     public LoginBody() {
     }
 
+    @Override
+    public String toString() {
+        return "LoginBody{" +
+                "username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                '}';
+    }
 }

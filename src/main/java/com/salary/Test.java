@@ -34,7 +34,7 @@ public class Test {
             System.out.println(i);
             int i1 = dao.removeUser(3L);
             System.out.println(i1);
-            session.commit();
+            session.();
         } catch (Exception e){
             if(e.getMessage().endsWith("for key 'phone'")){
                 //手机号重复

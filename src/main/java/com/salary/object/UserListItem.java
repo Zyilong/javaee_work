@@ -1,4 +1,4 @@
-package com.salary.bean;
+package com.salary.object;
 
 public class UserListItem {
     private long userId;

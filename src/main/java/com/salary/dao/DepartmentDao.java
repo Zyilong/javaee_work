@@ -5,7 +5,9 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-
+/**
+ * mapper接口，执行部门相关操作
+ */
 public interface DepartmentDao {
 
     Department findDepartmentById(Long id);

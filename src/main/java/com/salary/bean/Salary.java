@@ -3,7 +3,11 @@ package com.salary.bean;
 import java.util.Date;
 import java.util.Objects;
 
+/**
+ * 薪酬实体类
+ */
 public class Salary {
+
     private long id;
     private long userId;
     private Date time;
