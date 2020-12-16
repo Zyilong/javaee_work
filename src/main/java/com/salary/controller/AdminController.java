@@ -22,11 +22,6 @@ import java.util.*;
 @RequestMapping("/api/admin")
 public class AdminController {
 
-    private final SqlSession session = SqlSessionUtil.getSesion();
-    private final UserDao userDao = session.getMapper(UserDao.class);
-    private final DepartmentDao departmentDao = session.getMapper(DepartmentDao.class);
-    private final AdminDao adminDao = session.getMapper(AdminDao.class);
-
     private String finalAccessToken;
     private Message message;
 
@@ -61,6 +56,8 @@ public class AdminController {
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseBody
     public String login(@RequestBody LoginBody loginBody) {
+        SqlSession session = SqlSessionUtil.getSesion();
+        AdminDao adminDao = session.getMapper(AdminDao.class);
         String password1 = adminDao.getPassword(loginBody.getUsername());
 
         if (password1 != null && password1 != "" && password1.equals(loginBody.getPassword())) {
@@ -106,6 +103,8 @@ public class AdminController {
             String json = JsonUtil.toJSON(message);
             return json;
         }
+        SqlSession session = SqlSessionUtil.getSesion();
+        UserDao userDao = session.getMapper(UserDao.class);
         user.setId(id);
         System.out.println("要更新的用户信息->" + user);
         int i = userDao.updateUser(user);
@@ -136,6 +135,8 @@ public class AdminController {
             String json = JsonUtil.toJSON(message);
             return json;
         }
+        SqlSession session = SqlSessionUtil.getSesion();
+        UserDao userDao = session.getMapper(UserDao.class);
         System.out.println("要删除的id->" + id);
         int i = userDao.removeUser(id);
 
@@ -163,6 +164,9 @@ public class AdminController {
             String json = JsonUtil.toJSON(message);
             return json;
         }
+        SqlSession session = SqlSessionUtil.getSesion();
+        UserDao userDao = session.getMapper(UserDao.class);
+        DepartmentDao departmentDao = session.getMapper(DepartmentDao.class);
         List<User> list = userDao.getAll();
         List<UserListItem> list1 = new ArrayList<>();
 
@@ -199,6 +203,8 @@ public class AdminController {
             String json = JsonUtil.toJSON(message);
             return json;
         }
+        SqlSession session = SqlSessionUtil.getSesion();
+        DepartmentDao departmentDao = session.getMapper(DepartmentDao.class);
         List<Department> list = departmentDao.findAll();
         List<Map> list1 = new ArrayList<>();
 
@@ -246,6 +252,8 @@ public class AdminController {
             String json = JsonUtil.toJSON(message);
             return json;
         }
+        SqlSession session = SqlSessionUtil.getSesion();
+        DepartmentDao departmentDao = session.getMapper(DepartmentDao.class);
         System.out.println("要查找的部门id->" + id);
         Department department = departmentDao.findDepartmentById(id);
         Map<String, Object> map = new HashMap<>();
@@ -280,6 +288,8 @@ public class AdminController {
             String json = JsonUtil.toJSON(message);
             return json;
         }
+        SqlSession session = SqlSessionUtil.getSesion();
+        DepartmentDao departmentDao = session.getMapper(DepartmentDao.class);
         System.out.println("要更新的部门信息->" + department);
         int i = departmentDao.update(department);
         if (i != 0) {
@@ -308,6 +318,8 @@ public class AdminController {
             String json = JsonUtil.toJSON(message);
             return json;
         }
+        SqlSession session = SqlSessionUtil.getSesion();
+        DepartmentDao departmentDao = session.getMapper(DepartmentDao.class);
         System.out.println("要删除的部门id->" + id);
         Department department = departmentDao.findDepartmentById(id);
         Map<String, Object> map = new HashMap<>();
@@ -348,6 +360,8 @@ public class AdminController {
             return json;
         }
         try {
+            SqlSession session = SqlSessionUtil.getSesion();
+            DepartmentDao departmentDao = session.getMapper(DepartmentDao.class);
             int i = departmentDao.add(department);
             System.out.println("新增的部门信息->" + department);
             if (i != 0) {
@@ -381,6 +395,8 @@ public class AdminController {
             String json = JsonUtil.toJSON(message);
             return json;
         }
+        SqlSession session = SqlSessionUtil.getSesion();
+        DepartmentDao departmentDao = session.getMapper(DepartmentDao.class);
         List<Department> list = departmentDao.findChild(id);
         List<DepartmentListItem> list1 = new ArrayList<>();
         boolean flag = false;
