@@ -5,6 +5,7 @@ import com.salary.bean.*;
 import com.salary.dao.SalaryDao;
 import com.salary.dao.UserDao;
 import com.salary.data.Message;
+import com.salary.holder.AccessTokenHolder;
 import com.salary.object.*;
 import com.salary.util.EncryptUtil;
 import com.salary.util.JsonUtil;
@@ -23,7 +24,7 @@ import java.util.List;
 @RequestMapping("/api/user")
 public class UserController {
 
-    private String finalAccessToken;
+//    private String finalAccessToken;
     private Message message;
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
@@ -31,19 +32,20 @@ public class UserController {
     public String login(@RequestBody LoginBody loginBody) {
         SqlSession session = SqlSessionUtil.getSession();
         UserDao userDao = session.getMapper(UserDao.class);
-        String password = userDao.getPassword(loginBody.getUsername());
-        if (password != null && !password.equals("") && password.equals(loginBody.getPassword())) {
+        User user = userDao.login(loginBody.getUsername(),loginBody.getPassword());
+        if (user!=null) {
             String token = loginBody.getUsername() + new Timestamp(System.currentTimeMillis()).toString();
             String accessToken = "";
             //sha256加密
             try {
                 accessToken = EncryptUtil.messageDigest(token);
+                AccessTokenHolder.addUserToken(user.getId(),accessToken);
             } catch (NoSuchAlgorithmException e) {
                 e.printStackTrace();
             }
             System.out.println("生成的accessToken->" + accessToken);
             message = new Message(1, "ok", accessToken);
-            finalAccessToken = accessToken;
+//            finalAccessToken = accessToken;
         } else {
             message = new Message(0, "登录失败，请检查用户名和密码是否正确");
         }
@@ -86,7 +88,7 @@ public class UserController {
                               @RequestParam("userId") long userId){
         SqlSession session = SqlSessionUtil.getSession();
         UserDao userDao = session.getMapper(UserDao.class);
-        if(!accessToken.equals(finalAccessToken)){
+        if(!accessToken.equals(AccessTokenHolder.getUserToken(userId))){
             message = new Message(0, "accessToken错误");
         }else{
             User user = userDao.findUserById(userId);
@@ -109,7 +111,7 @@ public class UserController {
         System.out.println(userUpdateBody.toString());
         SqlSession session = SqlSessionUtil.getSession();
         UserDao userDao = session.getMapper(UserDao.class);
-        if(!accessToken.equals(finalAccessToken)){
+        if(!accessToken.equals(AccessTokenHolder.getUserToken(userId))){
             message = new Message(0, "accessToken错误");
         }else{
             User user = new User();
@@ -140,7 +142,7 @@ public class UserController {
         SqlSession session = SqlSessionUtil.getSession();
         UserDao userDao = session.getMapper(UserDao.class);
         SalaryDao salaryDao = session.getMapper(SalaryDao.class);
-        if(!accessToken.equals(finalAccessToken)){
+        if(!accessToken.equals(AccessTokenHolder.getUserToken(userId))){
             message = new Message(0, "accessToken错误");
         }else{
             if(userDao.findUserById(userId)==null){

@@ -1,7 +1,7 @@
 package com.salary;
 
 import com.salary.bean.Department;
-import com.salary.bean.Message;
+import com.salary.data.Message;
 import com.salary.bean.User;
 import com.salary.controller.AdminController;
 import com.salary.dao.AdminDao;

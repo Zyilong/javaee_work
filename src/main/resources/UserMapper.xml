@@ -23,6 +23,10 @@
         UPDATE user set Del=1 WHERE id=#{id}
     </update>
 
+    <select id="login" parameterType="String" resultType="user">
+        select * from user where username=#{username} and password=#{password} and Del=0
+    </select>
+
     <select id="getPassword" parameterType="String" resultType="String">
        select password from user where username=#{username}
     </select>

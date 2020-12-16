@@ -1,6 +1,7 @@
 package com.salary.dao;
 
 import com.salary.bean.User;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -17,6 +18,8 @@ public interface UserDao {
     int removeUser(Long id);
 
     int updateUser(User user);
+
+    User login(@Param("username")String username, @Param("password")String password);
 
     String getPassword(String password);
 
