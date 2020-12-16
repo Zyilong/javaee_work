@@ -19,12 +19,12 @@
         UPDATE user set Del=1 WHERE id=#{id}
     </update>
 
-    <select id="getPassword" parameterType="String" resultType="user">
+    <select id="getPassword" parameterType="String" resultType="String">
        select password from user where username=#{username}
     </select>
 
     <select id="findUserById" parameterType="Long" resultType="user">
-        select * from user where Del=0 and userId=#{userId}
+        select * from user where Del=0 and id=#{userId}
     </select>
 
     <select id="findUserByUsername" parameterType="String" resultType="user">

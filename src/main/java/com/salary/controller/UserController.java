@@ -12,7 +12,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.UnsupportedEncodingException;
-import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -23,9 +22,7 @@ import java.util.List;
 @RequestMapping("/api/user")
 public class UserController {
 
-    private final SqlSession session = SqlSessionUtil.getSesion();
-    private final UserDao userDao = session.getMapper(UserDao.class);
-    private final SalaryDao salaryDao = session.getMapper(SalaryDao.class);
+
     private String finalAccessToken;
     private Message message;
 
@@ -54,6 +51,9 @@ public class UserController {
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseBody
     public String login(@RequestBody LoginBody loginBody) {
+        System.out.println(loginBody);
+        SqlSession session = SqlSessionUtil.getSesion();
+        UserDao userDao = session.getMapper(UserDao.class);
         String password = userDao.getPassword(loginBody.getUsername());
 
         if (password != null && password != "" && password.equals(loginBody.getPassword())) {
@@ -87,7 +87,8 @@ public class UserController {
         String password = userRegisterBody.getPassword();
         String email = userRegisterBody.getEmail();
         String verifyCode = userRegisterBody.getVerifyCode();
-
+        SqlSession session = SqlSessionUtil.getSesion();
+        UserDao userDao = session.getMapper(UserDao.class);
         user = userDao.findUserByUsername(userRegisterBody.getUsername());
         if(user==null){
             if((hasNull = checkNUll(username,password,email,verifyCode))==null){
@@ -110,9 +111,12 @@ public class UserController {
     @ResponseBody
     public String getUserInfo(@RequestHeader("accessToken") String accessToken,
                               @RequestParam("userId") long userId){
+
         if(!accessToken.equals(finalAccessToken)){
             message = new Message(0, "accessToken错误");
         }else{
+            SqlSession session = SqlSessionUtil.getSesion();
+            UserDao userDao = session.getMapper(UserDao.class);
             User user = userDao.findUserById(userId);
             if(user==null){
                 message = new Message(0,"用户不存在");
@@ -134,6 +138,8 @@ public class UserController {
         if(!accessToken.equals(finalAccessToken)){
             message = new Message(0, "accessToken错误");
         }else{
+            SqlSession session = SqlSessionUtil.getSesion();
+            UserDao userDao = session.getMapper(UserDao.class);
             user.setId(userId);
             System.out.println("要更新的用户信息->" + user);
 
@@ -153,10 +159,14 @@ public class UserController {
     public String getUserSalary(@RequestHeader("accessToken") String accessToken,
                                 @RequestParam("userId") long userId){
 
+        SqlSession session = SqlSessionUtil.getSesion();
+        UserDao userDao = session.getMapper(UserDao.class);
+        SalaryDao salaryDao = session.getMapper(SalaryDao.class);
 
         if(!accessToken.equals(finalAccessToken)){
             message = new Message(0, "accessToken错误");
         }else{
+
             if(userDao.findUserById(userId)==null){
                 message = new Message(0,"用户不存在");
             }else{
