@@ -15,7 +15,9 @@
                     values(#{username},#{password},#{email},5,NOW())
     </insert>
 
-
+    <update id="updateUser" parameterType="user">
+        update user set name=#{name},age=#{age},gender=#{gender},phone=#{phone} where id=#{id}
+    </update>
 
     <update id="removeUser" parameterType="Long">
         UPDATE user set Del=1 WHERE id=#{id}

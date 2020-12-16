@@ -4,12 +4,10 @@ package com.salary.controller;
 import com.salary.bean.*;
 import com.salary.dao.SalaryDao;
 import com.salary.dao.UserDao;
-import com.salary.dao.UserMapper;
 import com.salary.util.EncryptUtil;
 import com.salary.util.JsonUtil;
 import com.salary.util.SqlSessionUtil;
 import org.apache.ibatis.session.SqlSession;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -111,15 +109,21 @@ public class UserController {
     @ResponseBody
     public String updateUserInfo(@RequestHeader("accessToken") String accessToken,
                          @RequestParam("userId") long userId,
-                         @RequestBody User user){
+                         @RequestBody UserUpdateBody userUpdateBody){
+        System.out.println(userUpdateBody.toString());
         SqlSession session = SqlSessionUtil.getSesion();
         UserDao userDao = session.getMapper(UserDao.class);
         if(!accessToken.equals(finalAccessToken)){
             message = new Message(0, "accessToken错误");
         }else{
+            User user = new User();
             user.setId(userId);
-            System.out.println("要更新的用户信息->" + user);
-            if(userDao.findUserById(userId)==null){
+            user.setName(userUpdateBody.getName());
+            user.setAge(userUpdateBody.getAge());
+            user.setGender(userUpdateBody.getGender());
+            user.setPhone(userUpdateBody.getPhone());
+
+            if(userDao.findUserById(userId)!=null){
                 if (userDao.updateUser(user) != 0) {
                     message = new Message(1, "ok");
                 } else {
