@@ -28,14 +28,13 @@
         SELECT * FROM department where Del=0
     </select>
 
-    <select id="findChild" resultType="department" parameterType="long">
+    <select id="findChild" resultType="department">
         SELECT * FROM department where parentId=#{id}
     </select>
 
     <update id="remove" parameterType="Long">
         UPDATE department set Del=1 WHERE id=#{id}
     </update>
-
     <update id="update" parameterType="department">
         UPDATE department set name=#{name},phone=#{phone},place=#{place},parentId=#{parentId} WHERE id=#{id}
     </update>
