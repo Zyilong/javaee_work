@@ -44,7 +44,7 @@ public class UserController {
                 e.printStackTrace();
             }
             System.out.println("生成的accessToken->" + accessToken);
-            message = new Message(1, "ok", accessToken);
+            message = new Message(1, "ok",  new LoginData(user.getId(),accessToken));
 //            finalAccessToken = accessToken;
         } else {
             message = new Message(0, "登录失败，请检查用户名和密码是否正确");
