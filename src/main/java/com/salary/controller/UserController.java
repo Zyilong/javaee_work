@@ -2,11 +2,13 @@ package com.salary.controller;
 
 
 import com.salary.bean.*;
+import com.salary.dao.DepartmentDao;
 import com.salary.dao.SalaryDao;
 import com.salary.dao.UserDao;
 import com.salary.data.Message;
 import com.salary.holder.AccessTokenHolder;
 import com.salary.object.*;
+import com.salary.util.DateFormatUtil;
 import com.salary.util.EncryptUtil;
 import com.salary.util.JsonUtil;
 import com.salary.util.SqlSessionUtil;
@@ -88,14 +90,19 @@ public class UserController {
                               @RequestParam("userId") long userId){
         SqlSession session = SqlSessionUtil.getSession();
         UserDao userDao = session.getMapper(UserDao.class);
+        DepartmentDao departmentDao = session.getMapper(DepartmentDao.class);
+
         if(!accessToken.equals(AccessTokenHolder.getUserToken(userId))){
+
             message = new Message(0, "accessToken错误");
+
         }else{
             User user = userDao.findUserById(userId);
             if(user==null){
                 message = new Message(0,"用户不存在");
             }else{
-                message = new Message(1,"ok",user);
+                Department department = departmentDao.findDepartmentById(user.getDepartmentId());
+                message = new Message(1,"ok",new UserInfo(user,department.getName()));
             }
         }
         SqlSessionUtil.closeSession();
@@ -152,12 +159,12 @@ public class UserController {
                 List<SalaryListItem> items = new ArrayList<>();
                 for(Salary salary:salaryList){
                     items.add(new SalaryListItem(salary.getPost(),salary.getPerformance(),salary.getWorkYearSalary(),salary.getAllowance(),
-                            salary.isFlag(),salary.getTime()));
+                            salary.isFlag(), DateFormatUtil.format(salary.getTime())));
                 }
                 if(salaryList.size()!=0){
                     message = new Message(1,"ok",items);
                 }else{
-                    message = new Message(0,"不存在该员工薪酬信息");
+                    message = new Message(1,"不存在该员工薪酬信息");
                 }
             }
         }
