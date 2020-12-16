@@ -9,12 +9,15 @@ import com.salary.dao.DepartmentDao;
 import com.salary.dao.UserDao;
 import com.salary.exception.DuplicateException;
 
+import com.salary.util.EncryptUtil;
 import org.apache.ibatis.session.SqlSession;
 
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 public class Test {
-    public static void main(String[] args) throws DuplicateException {
+    public static void main(String[] args) throws DuplicateException, UnsupportedEncodingException, NoSuchAlgorithmException {
         /*SqlSession session = SqlSessionUtil.getSesion();
         DepartmentDao dao = session.getMapper(DepartmentDao.class);
         List<Department> all = dao.findALL();
@@ -44,7 +47,8 @@ public class Test {
             SqlSessionUtil.closeSession();
         }*/
 
-
+        String password = EncryptUtil.messageDigest("123");
+        System.out.println(password);
 
     }
 }

@@ -1,11 +1,10 @@
 package com.salary.controller;
 
 
-import com.salary.bean.LoginBody;
-import com.salary.bean.Message;
-import com.salary.bean.User;
-import com.salary.bean.UserRegisterBody;
+import com.salary.bean.*;
+import com.salary.dao.SalaryDao;
 import com.salary.dao.UserDao;
+import com.salary.util.EncryptUtil;
 import com.salary.util.JsonUtil;
 import com.salary.util.SqlSessionUtil;
 import org.apache.ibatis.session.SqlSession;
@@ -16,6 +15,8 @@ import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Controller
@@ -24,8 +25,10 @@ public class UserController {
 
     private final SqlSession session = SqlSessionUtil.getSesion();
     private final UserDao userDao = session.getMapper(UserDao.class);
+    private final SalaryDao salaryDao = session.getMapper(SalaryDao.class);
     private String finalAccessToken;
     private Message message;
+
 
     /**
      * 将byte数组转化为十六进制字符串，用于加密
@@ -51,17 +54,14 @@ public class UserController {
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseBody
     public String login(@RequestBody LoginBody loginBody) {
-        String password1 = userDao.getPassword(loginBody.getUsername());
+        String password = userDao.getPassword(loginBody.getUsername());
 
-        if (password1 != null && password1 != "" && password1.equals(loginBody.getPassword())) {
+        if (password != null && password != "" && password.equals(loginBody.getPassword())) {
             String token = loginBody.getUsername() + new Timestamp(System.currentTimeMillis()).toString();
             String accessToken = "";
             //sha256加密
-            MessageDigest messageDigest;
             try {
-                messageDigest = MessageDigest.getInstance("SHA-256");
-                messageDigest.update(token.getBytes("UTF-8"));
-                accessToken = byte2Hex(messageDigest.digest());
+                accessToken = EncryptUtil.messageDigest(password);
             } catch (NoSuchAlgorithmException e) {
                 e.printStackTrace();
             } catch (UnsupportedEncodingException e) {
@@ -148,11 +148,34 @@ public class UserController {
         return json;
     }
 
+    @RequestMapping(value = "/salary", method = RequestMethod.GET)
+    @ResponseBody
     public String getUserSalary(@RequestHeader("accessToken") String accessToken,
                                 @RequestParam("userId") long userId){
-        //TODO
 
-        return null;
+
+        if(!accessToken.equals(finalAccessToken)){
+            message = new Message(0, "accessToken错误");
+        }else{
+            if(userDao.findUserById(userId)==null){
+                message = new Message(0,"用户不存在");
+            }else{
+                List<Salary> salaryList = salaryDao.findSalaryByUserId(userId);
+                List<SalaryListItem> items = new ArrayList<>();
+                for(Salary salary:salaryList){
+                    items.add(new SalaryListItem(salary.getPost(),salary.getPerformance(),salary.getWorkYearSalary(),salary.getAllowance(),
+                            salary.isFlag(),salary.getTime()));
+                }
+                if(salaryList.size()!=0){
+                    message = new Message(1,"ok",items);
+                }else{
+                    message = new Message(0,"不存在该员工信息");
+                }
+            }
+        }
+        SqlSessionUtil.closeSession();
+        String json = JsonUtil.toJSON(message);
+        return json;
     }
 
     private String checkNUll(String username,String password,String email,String verifyCode){

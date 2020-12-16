@@ -5,6 +5,7 @@ import com.salary.dao.AdminDao;
 import com.salary.dao.DepartmentDao;
 import com.salary.dao.UserDao;
 import com.salary.util.DateFormatUtil;
+import com.salary.util.EncryptUtil;
 import com.salary.util.JsonUtil;
 import com.salary.util.SqlSessionUtil;
 import org.apache.ibatis.session.SqlSession;
@@ -32,27 +33,6 @@ public class AdminController {
 
 
     /**
-     * 将byte数组转化为十六进制字符串，用于加密
-     *
-     * @param bytes
-     * @return
-     */
-    private static String byte2Hex(byte[] bytes) {
-        StringBuffer stringBuffer = new StringBuffer();
-        String temp = null;
-        for (int i = 0; i < bytes.length; i++) {
-            temp = Integer.toHexString(bytes[i] & 0xFF);
-            if (temp.length() == 1) {
-                //1得到一位的进行补0操作
-                stringBuffer.append("0");
-            }
-            stringBuffer.append(temp);
-        }
-        SqlSessionUtil.closeSession();
-        return stringBuffer.toString();
-    }
-
-    /**
      * 管理员登录
      *
      * @param loginBody 封装好的管理员登录实体类
@@ -67,11 +47,8 @@ public class AdminController {
             String token = loginBody.getUsername() + new Timestamp(System.currentTimeMillis()).toString();
             String accessToken = "";
             //sha256加密
-            MessageDigest messageDigest;
             try {
-                messageDigest = MessageDigest.getInstance("SHA-256");
-                messageDigest.update(token.getBytes("UTF-8"));
-                accessToken = byte2Hex(messageDigest.digest());
+                accessToken = EncryptUtil.messageDigest(token);
             } catch (NoSuchAlgorithmException e) {
                 e.printStackTrace();
             } catch (UnsupportedEncodingException e) {
