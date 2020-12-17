@@ -37,25 +37,31 @@ public interface UserDao {
      */
     int updateUser(User user);
 
+    /**
+     * 登录
+     * @param username 用户名
+     * @param password 密码
+     * @return
+     */
     User login(@Param("username")String username, @Param("password")String password);
 
     /**
      * 通过用户名得到用户密码
-     * @param username
+     * @param username 用户名
      * @return
      */
     String getPassword(String username);
 
     /**
      * 通过用户id得到用户
-     * @param userId
+     * @param userId 用户id
      * @return
      */
     User findUserById(long userId);
 
     /**
      * 通过用户名得到用户
-     * @param username
+     * @param username 用户名
      * @return
      */
     User findUserByUsername(String username);

@@ -16,7 +16,7 @@
     </insert>
 
     <update id="updateUser" parameterType="user">
-        update user set name=#{name},age=#{age},gender=#{gender},phone=#{phone} where id=#{id}
+        update user set username=#{username},password=#{password},name=#{name},age=#{age},gender=#{gender},phone=#{phone},departmentId=#{departmentId},email=#{email} where id=#{id}
     </update>
 
     <update id="removeUser" parameterType="Long">
