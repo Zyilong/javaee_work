@@ -24,11 +24,6 @@ public class Department {
 
     /**
      * 带参构造函数
-     * @param name
-     * @param phone
-     * @param place
-     * @param parentId
-     * @param time
      */
     public Department(String name, String phone, String place, long parentId, Date time) {
         this(0,name,phone,place,parentId,time,0);
@@ -36,13 +31,6 @@ public class Department {
 
     /**
      * 带id的带参构造函数
-     * @param id
-     * @param name
-     * @param phone
-     * @param place
-     * @param parentId
-     * @param time
-     * @param del
      */
     public Department(long id, String name, String phone, String place, long parentId, Date time, int del) {
         this.id = id;
@@ -56,7 +44,6 @@ public class Department {
 
     /**
      * 获得部门id
-     * @return
      */
     public long getId() {
         return id;
@@ -64,7 +51,6 @@ public class Department {
 
     /**
      * 修改部门id
-     * @param id
      */
     public void setId(long id) {
         this.id = id;
@@ -72,7 +58,6 @@ public class Department {
 
     /**
      * 获得部门名称
-     * @return
      */
     public String getName() {
         return name;
@@ -80,7 +65,6 @@ public class Department {
 
     /**
      * 修改部门名称
-     * @param name
      */
     public void setName(String name) {
         this.name = name;
@@ -88,7 +72,6 @@ public class Department {
 
     /**
      * 获得部门电话
-     * @return
      */
     public String getPhone() {
         return phone;
@@ -96,7 +79,6 @@ public class Department {
 
     /**
      * 修改部门电话
-     * @param phone
      */
     public void setPhone(String phone) {
         this.phone = phone;
@@ -104,7 +86,6 @@ public class Department {
 
     /**
      * 获得部门地址
-     * @return
      */
     public String getPlace() {
         return place;
@@ -112,7 +93,6 @@ public class Department {
 
     /**
      * 修改部门地址
-     * @param place
      */
     public void setPlace(String place) {
         this.place = place;
@@ -120,7 +100,6 @@ public class Department {
 
     /**
      * 获得父部门id
-     * @return
      */
     public long getParentId() {
         return parentId;
@@ -128,7 +107,6 @@ public class Department {
 
     /**
      * 修改父部门id
-     * @param parentId
      */
     public void setParentId(long parentId) {
         this.parentId = parentId;
@@ -136,7 +114,6 @@ public class Department {
 
     /**
      * 获得部门成立时间
-     * @return
      */
     public Date getTime() {
         return time;
@@ -144,7 +121,6 @@ public class Department {
 
     /**
      * 修改部门成立时间
-     * @param time
      */
     public void setTime(Date time) {
         this.time = time;
@@ -152,7 +128,6 @@ public class Department {
 
     /**
      * 获得delete标记
-     * @return
      */
     public int getDel() {
         return Del;
@@ -160,7 +135,6 @@ public class Department {
 
     /**
      * 修改delete标记
-     * @param del
      */
     public void setDel(int del) {
         Del = del;
@@ -168,7 +142,6 @@ public class Department {
 
     /**
      * 覆写的toString方法
-     * @return
      */
     @Override
     public String toString() {

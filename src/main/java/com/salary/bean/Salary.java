@@ -26,13 +26,6 @@ public class Salary {
 
     /**
      * 有参构造函数
-     * @param userId
-     * @param time
-     * @param post
-     * @param performance
-     * @param workYearSalary
-     * @param allowance
-     * @param flag
      */
     public Salary(long userId, Date time, float post, float performance, float workYearSalary, float allowance, boolean flag) {
         this(0L,userId,time,post,performance,workYearSalary,allowance,flag);
@@ -40,14 +33,6 @@ public class Salary {
 
     /**
      * 带id的有参构造函数
-     * @param id
-     * @param userId
-     * @param time
-     * @param post
-     * @param performance
-     * @param workYearSalary
-     * @param allowance
-     * @param flag
      */
     public Salary(long id, long userId, Date time, float post, float performance, float workYearSalary, float allowance, boolean flag) {
         this.id = id;
@@ -62,7 +47,6 @@ public class Salary {
 
     /**
      * 获得薪酬id
-     * @return
      */
     public long getId() {
         return id;
@@ -70,7 +54,6 @@ public class Salary {
 
     /**
      * 修改薪酬id
-     * @param id
      */
     public void setId(long id) {
         this.id = id;
@@ -78,7 +61,6 @@ public class Salary {
 
     /**
      * 获得用户id
-     * @return
      */
     public long getUserId() {
         return userId;
@@ -86,7 +68,6 @@ public class Salary {
 
     /**
      * 修改用户id
-     * @param userId
      */
     public void setUserId(long userId) {
         this.userId = userId;
@@ -94,7 +75,6 @@ public class Salary {
 
     /**
      * 获得发放时间
-     * @return
      */
     public Date getTime() {
         return time;
@@ -102,7 +82,6 @@ public class Salary {
 
     /**
      * 修改发放时间
-     * @param time
      */
     public void setTime(Date time) {
         this.time = time;
@@ -110,7 +89,6 @@ public class Salary {
 
     /**
      * 获得岗位工资
-     * @return
      */
     public float getPost() {
         return post;
@@ -118,7 +96,6 @@ public class Salary {
 
     /**
      * 修改岗位工资
-     * @param post
      */
     public void setPost(float post) {
         this.post = post;
@@ -126,7 +103,6 @@ public class Salary {
 
     /**
      * 获得绩效工资
-     * @return
      */
     public float getPerformance() {
         return performance;
@@ -134,7 +110,6 @@ public class Salary {
 
     /**
      * 修改绩效工资
-     * @param performance
      */
     public void setPerformance(float performance) {
         this.performance = performance;
@@ -142,7 +117,6 @@ public class Salary {
 
     /**
      * 获得工龄工资
-     * @return
      */
     public float getWorkYearSalary() {
         return workYearSalary;
@@ -150,7 +124,6 @@ public class Salary {
 
     /**
      * 修改工龄工资
-     * @param workYearSalary
      */
     public void setWorkYearSalary(float workYearSalary) {
         this.workYearSalary = workYearSalary;
@@ -158,7 +131,6 @@ public class Salary {
 
     /**
      * 获得津贴补助
-     * @return
      */
     public float getAllowance() {
         return allowance;
@@ -166,7 +138,6 @@ public class Salary {
 
     /**
      * 修改津贴补助
-     * @param allowance
      */
     public void setAllowance(float allowance) {
         this.allowance = allowance;
@@ -174,7 +145,6 @@ public class Salary {
 
     /**
      * 获得发放标记
-     * @return
      */
     public boolean isFlag() {
         return flag;
@@ -182,7 +152,6 @@ public class Salary {
 
     /**
      * 修改发放标记
-     * @param flag
      */
     public void setFlag(boolean flag) {
         this.flag = flag;
@@ -190,8 +159,6 @@ public class Salary {
 
     /**
      * 覆写的equals方法
-     * @param o
-     * @return
      */
     @Override
     public boolean equals(Object o) {
@@ -210,7 +177,6 @@ public class Salary {
 
     /**
      * 覆写的toString方法
-     * @return
      */
     @Override
     public String toString() {

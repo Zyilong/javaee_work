@@ -103,6 +103,7 @@ public class User {
 
     /**
      * 获得邮箱
+     * @return
      */
     public String getEmail() {
         return email;
@@ -124,7 +125,6 @@ public class User {
 
     /**
      * 修改姓名
-     * @param name
      */
     public void setName(String name) {
         this.name = name;
@@ -132,7 +132,6 @@ public class User {
 
     /**
      * 获得年龄
-     * @return
      */
     public int getAge() {
         return age;
@@ -140,7 +139,6 @@ public class User {
 
     /**
      * 修改年龄
-     * @param age
      */
     public void setAge(int age) {
         this.age = age;
@@ -148,7 +146,6 @@ public class User {
 
     /**
      * 获得性别
-     * @return
      */
     public int getGender() {
         return gender;
@@ -156,7 +153,6 @@ public class User {
 
     /**
      * 修改性别
-     * @param gender
      */
     public void setGender(int gender) {
         this.gender = gender;
@@ -164,7 +160,6 @@ public class User {
 
     /**
      * 获得电话
-     * @return
      */
     public String getPhone() {
         return phone;
@@ -172,7 +167,6 @@ public class User {
 
     /**
      * 修改电话
-     * @param phone
      */
     public void setPhone(String phone) {
         this.phone = phone;
@@ -180,7 +174,6 @@ public class User {
 
     /**
      * 获得部门id
-     * @return
      */
     public long getDepartmentId() {
         return departmentId;
@@ -188,7 +181,6 @@ public class User {
 
     /**
      * 修改部门id
-     * @param departmentId
      */
     public void setDepartmentId(long departmentId) {
         this.departmentId = departmentId;
@@ -196,7 +188,6 @@ public class User {
 
     /**
      * 获得delete标记
-     * @return
      */
     public int getDel() {
         return del;
@@ -204,7 +195,6 @@ public class User {
 
     /**
      * 修改delete标记
-     * @param del
      */
     public void setDel(int del) {
         this.del = del;
@@ -212,7 +202,6 @@ public class User {
 
     /**
      * 获得注册时间
-     * @return
      */
     public Date getRegisterTime() {
         return registerTime;
@@ -220,7 +209,6 @@ public class User {
 
     /**
      * 修改注册时间
-     * @param registerTime
      */
     public void setRegisterTime(Date registerTime) {
         this.registerTime = registerTime;
@@ -228,7 +216,6 @@ public class User {
 
     /**
      * 覆写的toString方法
-     * @return
      */
     @Override
     public String toString() {

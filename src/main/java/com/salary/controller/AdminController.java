@@ -30,7 +30,7 @@ import java.util.*;
 @RequestMapping("/api/admin")
 public class AdminController {
 
-    private String finalAccessToken;//访问令牌
+    private static String finalAccessToken;//访问令牌
     private Message message;//消息
 
 
@@ -60,8 +60,8 @@ public class AdminController {
             System.out.println("生成的accessToken->" + accessToken);
             Map<String,String> map = new HashMap<>();
             map.put("accessToken",accessToken);
-            message = new Message(1, "ok", map);
             finalAccessToken = accessToken;
+            message = new Message(1, "ok", map);
         } else {
             message = new Message(0, "登录失败，请检查用户名和密码是否正确");
         }
@@ -139,6 +139,8 @@ public class AdminController {
     @RequestMapping(value = "/user/list", method = RequestMethod.GET)
     @ResponseBody
     public String getAllUser(@RequestHeader("accessToken") String accessToken) {
+        System.out.println("传的"+accessToken);
+        System.out.println("存的"+finalAccessToken);
         if (!accessToken.equals(finalAccessToken)) {
             message = new Message(-1, "accessToken错误");
             return JsonUtil.toJSON(message);

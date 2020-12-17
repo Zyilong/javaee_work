@@ -18,8 +18,6 @@ public class Admin {
 
     /**
      * 有参构造函数
-     * @param username
-     * @param password
      */
     public Admin(String username, String password){
         this(0,username,password);
@@ -27,9 +25,6 @@ public class Admin {
 
     /**
      * 带id的有参构造函数
-     * @param id
-     * @param username
-     * @param password
      */
     public Admin(long id,String username, String password){
         this.id = id;
@@ -39,7 +34,6 @@ public class Admin {
 
     /**
      * 获得管理员id
-     * @return
      */
     public long getId() {
         return id;
@@ -47,7 +41,6 @@ public class Admin {
 
     /**
      * 修改管理员id
-     * @param id
      */
     public void setId(long id) {
         this.id = id;
@@ -55,7 +48,6 @@ public class Admin {
 
     /**
      * 获得管理员名称
-     * @return
      */
     public String getUsername() {
         return username;
@@ -63,7 +55,6 @@ public class Admin {
 
     /**
      * 修改管理员名称
-     * @param username
      */
     public void setUsername(String username) {
         this.username = username;
@@ -71,7 +62,6 @@ public class Admin {
 
     /**
      * 获得管理员密码
-     * @return
      */
     public String getPassword() {
         return password;
@@ -79,7 +69,6 @@ public class Admin {
 
     /**
      * 修改管理员密码
-     * @param password
      */
     public void setPassword(String password) {
         this.password = password;

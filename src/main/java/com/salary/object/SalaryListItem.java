@@ -1,11 +1,9 @@
 package com.salary.object;
 
-import java.util.Date;
-
 public class SalaryListItem {
     private float postSalary;//岗位工资
     private float performanceSalary;//绩效工资
-    private float workYearSalarySalary;//工龄工资
+    private float workYearSalary;//工龄工资
     private float allowanceSalary;//津贴补助
     private boolean flag=false;//发放标记
     private String time;//发放时间
@@ -14,15 +12,15 @@ public class SalaryListItem {
      * 构造函数
      * @param postSalary
      * @param performanceSalary
-     * @param workYearSalarySalary
+     * @param workYearSalary
      * @param allowanceSalary
      * @param flag
      * @param time
      */
-    public SalaryListItem(float postSalary, float performanceSalary, float workYearSalarySalary, float allowanceSalary, boolean flag, String time) {
+    public SalaryListItem(float postSalary, float performanceSalary, float workYearSalary, float allowanceSalary, boolean flag, String time) {
         this.postSalary = postSalary;
         this.performanceSalary = performanceSalary;
-        this.workYearSalarySalary = workYearSalarySalary;
+        this.workYearSalary = workYearSalary;
         this.allowanceSalary = allowanceSalary;
         this.flag = flag;
         this.time = time;
@@ -59,15 +57,15 @@ public class SalaryListItem {
     /**
      * 获得工龄工资
      */
-    public float getWorkYearSalarySalary() {
-        return workYearSalarySalary;
+    public float getWorkYearSalary() {
+        return workYearSalary;
     }
 
     /**
      * 修改工龄工资
      */
-    public void setWorkYearSalarySalary(float workYearSalarySalary) {
-        this.workYearSalarySalary = workYearSalarySalary;
+    public void setWorkYearSalary(float workYearSalary) {
+        this.workYearSalary = workYearSalary;
     }
 
     /**

@@ -70,7 +70,7 @@ public class UserController {
         user = userDao.findUserByUsername(userRegisterBody.getUsername());
         if(user==null){
             if((hasNull = checkNUll(username,password,email,verifyCode))==null){
-                //TODO
+                // TODO
                 user = new User(username,password,email);
                 userDao.addUser(user);
                 message = new Message(1,"ok");
